@@ -79,7 +79,7 @@ Exemplary application is located in `app` directory of this repository.
 Beacon class
 ------------
 
-`Beacon` class has the following attributes:
+`Beacon` class represents BLE beacon and has the following attributes:
 
 ```java
 BluetoothDevice device;
