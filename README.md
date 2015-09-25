@@ -13,7 +13,7 @@ Contents
 --------
 - [Usage](#usage)
 - [Example](#example)
-- [Beacon](#beacon)
+- [Beacon class](#beacon-class)
 - [Download](#download)
 - [Code style](#code-style)
 - [References](#references)
@@ -70,8 +70,8 @@ Example
 
 Exemplary application is located in `app` directory of this repository.
 
-Beacon
-------
+Beacon class
+------------
 
 `Beacon` class has the following attributes:
 
