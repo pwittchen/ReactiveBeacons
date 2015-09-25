@@ -22,15 +22,32 @@ public class Beacon {
   public final BluetoothDevice device;
   public final int rssi;
   public final byte[] scanRecord;
+  public final int txPower;
 
   public Beacon(BluetoothDevice device, int rssi, byte[] scanRecord) {
     this.device = device;
     this.rssi = rssi;
     this.scanRecord = scanRecord;
+    this.txPower = -59; // default value in for Estimote and Kontakt.io beacons
   }
 
   public static Beacon create(BluetoothDevice device, int rssi, byte[] scanRecord) {
     return new Beacon(device, rssi, scanRecord);
+  }
+
+  public double getDistance() {
+    return getDistance(rssi, txPower);
+  }
+
+  public Proximity getProximity() {
+    double distance = getDistance();
+    if (distance < 1) return Proximity.IMMEDIATE;
+    if (distance >= 1 && distance <= 3) return Proximity.NEAR;
+    return Proximity.FAR;
+  }
+
+  private double getDistance(int rssi, int txPower) {
+    return Math.pow(10d, ((double) txPower - rssi) / (10 * 2));
   }
 
   @Override public String toString() {

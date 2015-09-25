@@ -19,20 +19,20 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import com.github.pwittchen.library.Beacon;
+import com.github.pwittchen.library.ReactiveBeacons;
 import com.github.pwittchen.reactivebeacons.R;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import com.github.pwittchen.library.Beacon;
-import com.github.pwittchen.library.ReactiveBeacons;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
-  public static final String BEACON_ITEM_FORMAT = "MAC: %s, RSSI: %s";
+  public static final String ITEM_FORMAT = "MAC: %s, RSSI: %d\ndistance: %s m, proximity: %s\n%s";
   private ReactiveBeacons reactiveBeacons;
   private Subscription subscription;
   private ListView lvBeacons;
@@ -65,12 +65,21 @@ public class MainActivity extends AppCompatActivity {
     List<String> list = new ArrayList<>();
 
     for (Beacon beacon : beacons.values()) {
-      String item = String.format(BEACON_ITEM_FORMAT, beacon.device.getAddress(), beacon.rssi);
-      list.add(item);
+      list.add(getBeaconItemString(beacon));
     }
 
     int itemLayoutId = android.R.layout.simple_list_item_1;
     lvBeacons.setAdapter(new ArrayAdapter<>(this, itemLayoutId, list));
+  }
+
+  private String getBeaconItemString(Beacon beacon) {
+    String mac = beacon.device.getAddress();
+    int rssi = beacon.rssi;
+    double roundedDistance = Math.round(beacon.getDistance() * 100.0) / 100.0;
+    String roundedDistanceString = String.valueOf(roundedDistance);
+    String proximity = beacon.getProximity().toString();
+    String name = beacon.device.getName();
+    return String.format(ITEM_FORMAT, mac, rssi, roundedDistanceString, proximity, name);
   }
 
   @Override protected void onPause() {
