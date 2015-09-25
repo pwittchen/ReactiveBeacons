@@ -112,6 +112,9 @@ References
 - [Bluetooth Low Energy on Wikipedia](https://en.wikipedia.org/wiki/Bluetooth_low_energy)
 - [android-bluetooth-demo repository](https://github.com/Pixplicity/android-bluetooth-demo)
 - [Converting callbacks to RxJava Observables](https://getpocket.com/a/read/1052659262)
+- [Transmission power range and RSSI](https://support.kontakt.io/hc/en-gb/articles/201621521-Transmission-power-Range-and-RSSI)
+- [What are Broadcasting Power, RSSI and other characteristics of beacon's signal?](https://community.estimote.com/hc/en-us/articles/201636913-What-are-Broadcasting-Power-RSSI-and-other-characteristics-of-beacon-s-signal-)
+- [Estimating beacon proximity/distance based on RSSI - Bluetooth LE](http://stackoverflow.com/questions/22784516/estimating-beacon-proximity-distance-based-on-rssi-bluetooth-le)
 
 ### Producers of BLE beacons
 
