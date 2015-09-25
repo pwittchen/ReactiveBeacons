@@ -13,6 +13,7 @@ Contents
 --------
 - [Usage](#usage)
 - [Example](#example)
+- [Beacon](#beacon)
 - [Download](#download)
 - [Code style](#code-style)
 - [References](#references)
@@ -68,6 +69,30 @@ Example
 -------
 
 Exemplary application is located in `app` directory of this repository.
+
+Beacon
+------
+
+`Beacon` class has the following attributes:
+
+```java
+BluetoothDevice device;
+int rssi;
+byte[] scanRecord;
+int txPower;
+```
+
+All of the elements are assigned dynamically, but `txPower` has default value equal to `-59`.
+It works quite fine for different types of beacons.
+
+Beacon class has also `getDistance()` method, which returns distance from mobile device to beacon in meters and `getProximity()` method, which returns `Proximity` value.
+
+`Proximity` can be as follows:
+- `IMMEDIATE` - from 0m to 1m
+- `NEAR` - from 1m to 3m
+- `FAR` - more than 3m
+
+Beacon class has also static `create(...)` method responsible for creating Beacon objects.
 
 Download
 --------
