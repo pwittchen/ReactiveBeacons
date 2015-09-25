@@ -13,6 +13,7 @@ Contents
 --------
 - [Usage](#usage)
 - [Example](#example)
+- [Download](#download)
 - [Code style](#code-style)
 - [References](#references)
 - [License](#license)
@@ -65,6 +66,11 @@ Example
 -------
 
 Exemplary application is located in `app` directory of this repository.
+
+Download
+--------
+
+Download section will be updated in the future.
 
 Code style
 ----------
