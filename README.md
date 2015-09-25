@@ -1,7 +1,7 @@
 # ReactiveBeacons
 Android library scanning BLE beacons nearby with RxJava Observables
 
-This library has limited functionality, but its API is very simple and has just three methods including constructor as follows:
+This library has limited functionality, but its API is very simple and has just three methods including constructor:
 
 ```java
 ReactiveBeacons(context)
