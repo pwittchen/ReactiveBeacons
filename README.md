@@ -22,6 +22,8 @@ Contents
 Usage
 -----
 
+### Step 1
+
 Initialize `ReactiveBeacons` object:
 
 ```java
@@ -31,6 +33,8 @@ private ReactiveBeacons reactiveBeacons;
   reactiveBeacons = new ReactiveBeacons(this);
 }
 ```
+
+### Step 2
 
 Create subscribtion:
 
@@ -53,6 +57,8 @@ private Subscription subscription;
     });
 }    
 ```
+
+### Step 3
 
 Unsubscribe subscription in `onPause()` method to stop BLE scan.
 
