@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="pwittchen.github.com.library"
+    package="com.github.pwittchen.library"
     >
 
   <uses-feature
