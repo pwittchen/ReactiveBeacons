@@ -62,6 +62,8 @@ Unsubscribe subscription in `onPause()` method to stop BLE scan.
 }
 ```
 
+**Please note**: Library may emit information about the same beacon multiple times. New emission is created everytime when RSSI changes. We can distinguish several beacons by their MAC addresses with `beacon.device.getAddress()` method.
+
 Example
 -------
 
