@@ -1,5 +1,5 @@
 # ReactiveBeacons
-Android library scanning BLE beacons nearby with RxJava
+Android library scanning BLE (Bluetooth Low Energy) beacons nearby with RxJava
 
 This library has limited functionality, but its API is very simple and has just three methods including constructor:
 
