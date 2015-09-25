@@ -85,6 +85,7 @@ References
 ### Useful resources
 
 - [Bluetooth Low Energy on Wikipedia](https://en.wikipedia.org/wiki/Bluetooth_low_energy)
+- [android-bluetooth-demo repository](https://github.com/Pixplicity/android-bluetooth-demo)
 - [Converting callbacks to RxJava Observables](https://getpocket.com/a/read/1052659262)
 
 ### Producers of BLE beacons
