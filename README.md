@@ -21,7 +21,7 @@ Contents
 Usage
 -----
 
-Initialize reactiveBeacons object:
+Initialize `ReactiveBeacons` object:
 
 ```java
 private ReactiveBeacons reactiveBeacons;
