@@ -22,3 +22,9 @@ dependencies {
   compile 'io.reactivex:rxjava:1.0.14'
   testCompile 'junit:junit:4.12'
 }
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '2.2.1'
+}
+
+apply from: '../maven_push.gradle'

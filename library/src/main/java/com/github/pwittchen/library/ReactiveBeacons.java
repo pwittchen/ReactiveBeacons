@@ -23,16 +23,30 @@ import android.content.Intent;
 import rx.Observable;
 import rx.functions.Action0;
 
+/**
+ * An Android library monitoring Bluetooth Low Energy (BLE) beacons with RxJava
+ */
 public class ReactiveBeacons {
   private BluetoothAdapter bluetoothAdapter;
   private LeScanCallbackAdapter leScanCallbackAdapter;
 
+  /**
+   * Initializes ReactiveBeacons object
+   *
+   * @param context context of the activity or application
+   */
   public ReactiveBeacons(Context context) {
     String bluetoothService = Context.BLUETOOTH_SERVICE;
     BluetoothManager manager = (BluetoothManager) context.getSystemService(bluetoothService);
     bluetoothAdapter = manager.getAdapter();
   }
 
+  /**
+   * starts intent requesting Bluetooth connection, which can be enabled by user
+   * if it's not enabled already
+   *
+   * @param activity current Activity
+   */
   public void requestBluetoothAccessIfDisabled(Activity activity) {
     boolean isBluetoothEnabled = bluetoothAdapter != null && bluetoothAdapter.isEnabled();
 
@@ -44,6 +58,11 @@ public class ReactiveBeacons {
     activity.startActivityForResult(intent, Activity.RESULT_FIRST_USER);
   }
 
+  /**
+   * Creates an observable stream of BLE beacons, which can be subscribed with RxJava
+   *
+   * @return Observable stream of beacons
+   */
   @SuppressWarnings("deprecation") public Observable<Beacon> observe() {
     leScanCallbackAdapter = new LeScanCallbackAdapter();
     bluetoothAdapter.startLeScan(leScanCallbackAdapter);

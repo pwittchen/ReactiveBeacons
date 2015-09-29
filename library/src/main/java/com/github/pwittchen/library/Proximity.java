@@ -16,14 +16,22 @@
 package com.github.pwittchen.library;
 
 public enum Proximity {
-  IMMEDIATE("IMMEDIATE"),
-  NEAR("NEAR"),
-  FAR("FAR");
+  IMMEDIATE("IMMEDIATE", 0, 1),
+  NEAR("NEAR", 1, 3),
+  FAR("FAR", 3);
 
-  private String description;
+  public final String description;
+  public final int minDistance;
+  public final int maxDistance;
 
-  Proximity(String description) {
+  Proximity(String description, int minDistance) {
+    this(description, minDistance, -1); // maxDistance is not defined (is infinite)
+  }
+
+  Proximity(String description, int minDistance, int maxDistance) {
     this.description = description;
+    this.minDistance = minDistance;
+    this.maxDistance = maxDistance;
   }
 
   @Override public String toString() {

@@ -20,9 +20,9 @@ import java.util.Arrays;
 
 public class Beacon {
   public final BluetoothDevice device;
-  public final int rssi;
+  public final int rssi; // Received Signal Strength Indication
   public final byte[] scanRecord;
-  public final int txPower;
+  public final int txPower; // The Transmit Power Level characteristic in dBm
 
   public Beacon(BluetoothDevice device, int rssi, byte[] scanRecord) {
     this.device = device;
@@ -35,14 +35,20 @@ public class Beacon {
     return new Beacon(device, rssi, scanRecord);
   }
 
+  /**
+   * Gets distance from BLE beacon to mobile device in meters
+   * @return distance in meters as double
+   */
   public double getDistance() {
     return getDistance(rssi, txPower);
   }
 
   public Proximity getProximity() {
     double distance = getDistance();
-    if (distance < 1) return Proximity.IMMEDIATE;
-    if (distance >= 1 && distance <= 3) return Proximity.NEAR;
+    Proximity immediate = Proximity.IMMEDIATE;
+    Proximity near = Proximity.NEAR;
+    if (distance < immediate.maxDistance) return immediate;
+    if (distance >= near.minDistance && distance <= near.maxDistance) return near;
     return Proximity.FAR;
   }
 
