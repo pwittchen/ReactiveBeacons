@@ -107,7 +107,23 @@ Beacon class has also static `create(...)` method responsible for creating Beaco
 Download
 --------
 
-Download section will be updated in the future.
+You can depend on the library through Maven:
+
+```xml
+<dependency>
+    <groupId>com.github.pwittchen</groupId>
+    <artifactId>reactivebeacons</artifactId>
+    <version>0.0.1</version>
+</dependency>
+```
+
+or through Gradle:
+
+```groovy
+dependencies {
+  compile 'com.github.pwittchen:reactivebeacons:0.0.1'
+}
+```
 
 Code style
 ----------
