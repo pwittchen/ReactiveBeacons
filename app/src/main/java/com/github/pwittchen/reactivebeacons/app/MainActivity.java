@@ -33,7 +33,7 @@ import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
-  public static final String ITEM_FORMAT = "MAC: %s, RSSI: %d\ndistance: %.2f m, proximity: %s\n%s";
+  private static final String ITEM_FORMAT = "MAC: %s, RSSI: %d\ndistance: %.2fm, proximity: %s\n%s";
   private ReactiveBeacons reactiveBeacons;
   private Subscription subscription;
   private ListView lvBeacons;
