@@ -20,6 +20,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import com.github.pwittchen.library.Beacon;
+import com.github.pwittchen.library.Proximity;
 import com.github.pwittchen.library.ReactiveBeacons;
 import com.github.pwittchen.reactivebeacons.R;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
-  public static final String ITEM_FORMAT = "MAC: %s, RSSI: %d\ndistance: %s m, proximity: %s\n%s";
+  public static final String ITEM_FORMAT = "MAC: %s, RSSI: %d\ndistance: %.2f m, proximity: %s\n%s";
   private ReactiveBeacons reactiveBeacons;
   private Subscription subscription;
   private ListView lvBeacons;
@@ -75,11 +76,10 @@ public class MainActivity extends AppCompatActivity {
   private String getBeaconItemString(Beacon beacon) {
     String mac = beacon.device.getAddress();
     int rssi = beacon.rssi;
-    double roundedDistance = Math.round(beacon.getDistance() * 100.0) / 100.0;
-    String roundedDistanceString = String.valueOf(roundedDistance);
-    String proximity = beacon.getProximity().toString();
+    double distance = beacon.getDistance();
+    Proximity proximity = beacon.getProximity();
     String name = beacon.device.getName();
-    return String.format(ITEM_FORMAT, mac, rssi, roundedDistanceString, proximity, name);
+    return String.format(ITEM_FORMAT, mac, rssi, distance, proximity, name);
   }
 
   @Override protected void onPause() {
