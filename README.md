@@ -11,6 +11,8 @@ void requestBluetoothAccessIfDisabled(activity)
 Observable<Beacon> observe()
 ```
 
+JavaDoc is available at: http://pwittchen.github.io/ReactiveBeacons/
+
 Contents
 --------
 - [Usage](#usage)
