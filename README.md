@@ -141,6 +141,7 @@ References
 - [Transmission power range and RSSI](https://support.kontakt.io/hc/en-gb/articles/201621521-Transmission-power-Range-and-RSSI)
 - [What are Broadcasting Power, RSSI and other characteristics of beacon's signal?](https://community.estimote.com/hc/en-us/articles/201636913-What-are-Broadcasting-Power-RSSI-and-other-characteristics-of-beacon-s-signal-)
 - [Estimating beacon proximity/distance based on RSSI - Bluetooth LE](http://stackoverflow.com/questions/22784516/estimating-beacon-proximity-distance-based-on-rssi-bluetooth-le)
+- [RSSI (Received Signal Strength Indication) on Wikipedia](https://en.wikipedia.org/wiki/Received_signal_strength_indication)
 
 ### Producers of BLE beacons
 
