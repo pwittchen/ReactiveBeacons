@@ -146,11 +146,18 @@ References
 - [What are Broadcasting Power, RSSI and other characteristics of beacon's signal?](https://community.estimote.com/hc/en-us/articles/201636913-What-are-Broadcasting-Power-RSSI-and-other-characteristics-of-beacon-s-signal-)
 - [Estimating beacon proximity/distance based on RSSI - Bluetooth LE](http://stackoverflow.com/questions/22784516/estimating-beacon-proximity-distance-based-on-rssi-bluetooth-le)
 - [RSSI (Received Signal Strength Indication) on Wikipedia](https://en.wikipedia.org/wiki/Received_signal_strength_indication)
+- [Specification for Eddystone, an open beacon format from Google](https://github.com/google/eddystone)
 
 ### Producers of BLE beacons
 
 - [Estimote](http://estimote.com)
 - [Kontakt.io](http://kontakt.io)
+
+### Other APIs and libraries
+- [Android SDK by Estimote](https://github.com/Estimote/Android-SDK)
+- [Android SDK by Kontakt.io](https://github.com/kontaktio/Android-SDK)
+- [Android Beacon Library by AltBeacon](https://github.com/AltBeacon/android-beacon-library)
+
 
 License
 -------
