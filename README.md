@@ -1,4 +1,8 @@
 # ReactiveBeacons
+
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-ReactiveBeacons-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/2576)
+![Maven Central](https://img.shields.io/maven-central/v/com.github.pwittchen/reactivebeacons.svg?style=flat)
+
 Android library scanning BLE (Bluetooth Low Energy) beacons nearby with RxJava
 
 Library was tested with Estimote and Kontakt beacons.
