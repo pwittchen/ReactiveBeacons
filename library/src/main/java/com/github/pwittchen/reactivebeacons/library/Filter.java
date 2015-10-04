@@ -38,6 +38,20 @@ public class Filter {
     };
   }
 
+  public static Func1<Beacon, Boolean> proximityIsNotEqualTo(final Proximity... proximities) {
+    return new Func1<Beacon, Boolean>() {
+      @Override public Boolean call(Beacon beacon) {
+        boolean proximitiesAreEqual = false;
+
+        for (Proximity proximity : proximities) {
+          proximitiesAreEqual = beacon.getProximity() != proximity;
+        }
+
+        return proximitiesAreEqual;
+      }
+    };
+  }
+
   public static Func1<Beacon, Boolean> distanceIsEqualTo(final double distance) {
     return new Func1<Beacon, Boolean>() {
       @Override public Boolean call(Beacon beacon) {
