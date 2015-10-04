@@ -23,6 +23,7 @@ Contents
 - [Usage](#usage)
 - [Example](#example)
 - [Beacon class](#beacon-class)
+- [Filter class](#filter-class)
 - [Download](#download)
 - [Code style](#code-style)
 - [References](#references)
@@ -108,6 +109,35 @@ Beacon class has also `getDistance()` method, which returns distance from mobile
 - `FAR` - more than 3m
 
 Beacon class has also static `create(...)` method responsible for creating Beacon objects.
+
+Filter class
+------------
+
+`Filter` class provides static filtering methods, which can be used with RxJava `filter(...)` method inside specific subscription.
+
+Currently the following filters are available:
+- `proximityIsEqualTo(Proximity)`
+- `proximityIsNotEqualTo(Proximity)`
+- `distanceIsEqualTo(double)`
+- `distanceIsGreaterThan(double)`
+- `distanceIsLowerThan(double)`
+- `hasName(String)`
+- `hasMacAddress(String)`
+
+**Examplary usage**
+
+In the example below, we are filtering all Beacons with `Proximity` equal to `NEAR` value.
+
+```java
+reactiveBeacons.observe()
+    .filter(Filter.proximityIsEqualTo(Proximity.NEAR))
+    .subscribe(new Action1<Beacon>() {
+      @Override public void call(Beacon beacon) {
+        beacons.put(beacon.device.getAddress(), beacon);
+        refreshBeaconList();
+      }
+    });
+```    
 
 Download
 --------
