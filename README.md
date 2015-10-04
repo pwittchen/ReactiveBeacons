@@ -124,6 +124,8 @@ Currently the following filters are available:
 - `hasName(String)`
 - `hasMacAddress(String)`
 
+Of course, we can create our own custom filters, which are not listed above if we need to.
+
 **Examplary usage**
 
 In the example below, we are filtering all Beacons with `Proximity` equal to `NEAR` value.
