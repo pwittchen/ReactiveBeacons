@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.pwittchen.library;
+package com.github.pwittchen.reactivebeacons.library;
 
 import rx.functions.Func1;
 
@@ -31,6 +31,20 @@ public class Filter {
 
         for (Proximity proximity : proximities) {
           proximitiesAreEqual = beacon.getProximity() == proximity;
+        }
+
+        return proximitiesAreEqual;
+      }
+    };
+  }
+
+  public static Func1<Beacon, Boolean> proximityIsNotEqualTo(final Proximity... proximities) {
+    return new Func1<Beacon, Boolean>() {
+      @Override public Boolean call(Beacon beacon) {
+        boolean proximitiesAreEqual = false;
+
+        for (Proximity proximity : proximities) {
+          proximitiesAreEqual = beacon.getProximity() != proximity;
         }
 
         return proximitiesAreEqual;
