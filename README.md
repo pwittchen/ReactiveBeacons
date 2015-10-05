@@ -126,7 +126,7 @@ Currently the following filters are available:
 
 Of course, we can create our own custom filters, which are not listed above if we need to.
 
-**Examplary usage**
+**Exemplary usage**
 
 In the example below, we are filtering all Beacons with `Proximity` equal to `NEAR` value.
 
