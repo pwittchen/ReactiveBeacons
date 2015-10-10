@@ -19,6 +19,8 @@ Observable<Beacon> observe()
 
 JavaDoc is available at: http://pwittchen.github.io/ReactiveBeacons/
 
+min SDK = 9, but if you are using API level lower than 18, don't forget to [check BLE support](#checking-ble-support) on the device.
+
 Contents
 --------
 - [Usage](#usage)
