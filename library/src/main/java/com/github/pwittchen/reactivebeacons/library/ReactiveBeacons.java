@@ -15,11 +15,13 @@
  */
 package com.github.pwittchen.reactivebeacons.library;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import rx.Observable;
 import rx.functions.Action0;
 
@@ -35,10 +37,13 @@ public class ReactiveBeacons {
    *
    * @param context context of the activity or application
    */
-  public ReactiveBeacons(Context context) {
+  @SuppressLint("NewApi") public ReactiveBeacons(Context context) {
     String bluetoothService = Context.BLUETOOTH_SERVICE;
     BluetoothManager manager = (BluetoothManager) context.getSystemService(bluetoothService);
-    bluetoothAdapter = manager.getAdapter();
+
+    if (isBleSupported()) {
+      bluetoothAdapter = manager.getAdapter();
+    }
   }
 
   /**
@@ -63,13 +68,27 @@ public class ReactiveBeacons {
    *
    * @return Observable stream of beacons
    */
-  @SuppressWarnings("deprecation") public Observable<Beacon> observe() {
+  @SuppressLint("NewApi") @SuppressWarnings("deprecation") public Observable<Beacon> observe() {
+    if (!isBleSupported()) {
+      return Observable.empty();
+    }
+
     leScanCallbackAdapter = new LeScanCallbackAdapter();
     bluetoothAdapter.startLeScan(leScanCallbackAdapter);
+
     return leScanCallbackAdapter.toObservable().repeat().distinct().doOnUnsubscribe(new Action0() {
       @Override public void call() {
         bluetoothAdapter.stopLeScan(leScanCallbackAdapter);
       }
     });
+  }
+
+  /**
+   * Checks if Bluetooth Low Energy is enabled in the current Android version
+   *
+   * @return boolean
+   */
+  public boolean isBleSupported() {
+    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2;
   }
 }

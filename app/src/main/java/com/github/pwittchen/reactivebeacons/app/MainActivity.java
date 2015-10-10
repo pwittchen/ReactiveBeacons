@@ -19,10 +19,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+import com.github.pwittchen.reactivebeacons.R;
 import com.github.pwittchen.reactivebeacons.library.Beacon;
 import com.github.pwittchen.reactivebeacons.library.Proximity;
 import com.github.pwittchen.reactivebeacons.library.ReactiveBeacons;
-import com.github.pwittchen.reactivebeacons.R;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,7 +50,12 @@ public class MainActivity extends AppCompatActivity {
 
   @Override protected void onResume() {
     super.onResume();
-    reactiveBeacons.requestBluetoothAccessIfDisabled(this);
+
+    if (!reactiveBeacons.isBleSupported()) {
+      Toast.makeText(this, "BLE is not supported on this device", Toast.LENGTH_SHORT).show();
+    } else {
+      reactiveBeacons.requestBluetoothAccessIfDisabled(this);
+    }
 
     subscription = reactiveBeacons.observe()
         .observeOn(AndroidSchedulers.mainThread())
