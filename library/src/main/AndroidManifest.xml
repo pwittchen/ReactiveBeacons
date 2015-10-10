@@ -2,11 +2,6 @@
     package="com.github.pwittchen.reactivebeacons.library"
     >
 
-  <uses-feature
-      android:name="android.hardware.bluetooth_le"
-      android:required="true"
-      />
-
   <uses-permission android:name="android.permission.BLUETOOTH"/>
   <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
 

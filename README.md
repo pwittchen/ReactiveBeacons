@@ -8,10 +8,11 @@ Android library scanning BLE (Bluetooth Low Energy) beacons nearby with RxJava
 
 Library was tested with Estimote and Kontakt beacons.
 
-This library has limited functionality, but its API is very simple and has just three methods:
+This library has limited functionality, but its API is very simple and has just four methods:
 
 ```java
 ReactiveBeacons(context)
+boolean isBleSupported()
 void requestBluetoothAccessIfDisabled(activity)
 Observable<Beacon> observe()
 ```
@@ -21,6 +22,7 @@ JavaDoc is available at: http://pwittchen.github.io/ReactiveBeacons/
 Contents
 --------
 - [Usage](#usage)
+- [Good practices](#good-practices)
 - [Example](#example)
 - [Beacon class](#beacon-class)
 - [Filter class](#filter-class)
@@ -54,8 +56,12 @@ private Subscription subscription;
 @Override protected void onResume() {
   super.onResume();
   
-  // optionally, we can request Bluetooth Access
-  reactiveBeacons.requestBluetoothAccessIfDisabled(this);
+  if (!reactiveBeacons.isBleSupported()) { // optional, but recommended step
+    // show message for the user that BLE is not supported on the device
+  } else {
+    // optionally, we can request Bluetooth Access
+    reactiveBeacons.requestBluetoothAccessIfDisabled(this);
+  }
 
   subscription = reactiveBeacons.observe()
     .observeOn(AndroidSchedulers.mainThread())
@@ -80,6 +86,44 @@ Unsubscribe subscription in `onPause()` method to stop BLE scan.
 ```
 
 **Please note**: Library may emit information about the same beacon multiple times. New emission is created everytime when RSSI changes. We can distinguish several beacons by their MAC addresses with `beacon.device.getAddress()` method.
+
+Good practices
+--------------
+
+### Manifest
+
+Add `<uses-feature .../>` tag inside `<manifest ...>` tag in `AndroidManifest.xml` file in your application if you support Android devices with API level 18 or higher. You can skip this, if you are supporting lower API levels.
+
+```xml
+<uses-feature
+    android:name="android.hardware.bluetooth_le"
+    android:required="true" />
+```
+
+### Checking BLE support
+
+Check BLE support if you are supporting devices with API level lower than 18.
+
+```java
+if (!reactiveBeacons.isBleSupported()) {
+  // show message for the user that BLE is not supported on the device
+}
+```
+
+If BLE is not supported, Observable emitting Beacons will be always empty.
+
+### Requesting Bluetooth access
+
+Use `requestBluetoothAccessIfDisabled(context)` method to ensure that Bluetooth is enabled.
+If you are supporting devices with API level lower than 18, you don't have to request Bluetooth access every time.
+
+```java
+if (!reactiveBeacons.isBleSupported()) {
+  // show message for the user that BLE is not supported on the device
+} else {
+  reactiveBeacons.requestBluetoothAccessIfDisabled(context);
+}
+```
 
 Example
 -------
