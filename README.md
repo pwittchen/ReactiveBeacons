@@ -110,6 +110,8 @@ if (!reactiveBeacons.isBleSupported()) {
 }
 ```
 
+If BLE is not supported, Observable emitting Beacons will be always empty.
+
 ### Requesting Bluetooth access
 
 Use `requestBluetoothAccessIfDisabled(context)` method to ensure that Bluetooth is enabled.
