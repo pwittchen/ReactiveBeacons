@@ -15,11 +15,13 @@
  */
 package com.github.pwittchen.reactivebeacons.library;
 
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import rx.Observable;
 
-public class LeScanCallbackAdapter implements BluetoothAdapter.LeScanCallback {
+@SuppressLint("NewApi") public class LeScanCallbackAdapter
+    implements BluetoothAdapter.LeScanCallback {
   private final FutureAdapter futureAdapter = new FutureAdapter();
 
   @Override public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {

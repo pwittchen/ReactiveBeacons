@@ -15,7 +15,7 @@
  */
 package com.github.pwittchen.reactivebeacons.library;
 
-import android.annotation.TargetApi;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
@@ -37,7 +37,7 @@ public class ReactiveBeacons {
    *
    * @param context context of the activity or application
    */
-  public ReactiveBeacons(Context context) {
+  @SuppressLint("NewApi") public ReactiveBeacons(Context context) {
     String bluetoothService = Context.BLUETOOTH_SERVICE;
     BluetoothManager manager = (BluetoothManager) context.getSystemService(bluetoothService);
 
@@ -68,22 +68,19 @@ public class ReactiveBeacons {
    *
    * @return Observable stream of beacons
    */
-  @SuppressWarnings("deprecation") public Observable<Beacon> observe() {
-    if (isBleSupported()) {
-      leScanCallbackAdapter = new LeScanCallbackAdapter();
-      bluetoothAdapter.startLeScan(leScanCallbackAdapter);
-
-      return leScanCallbackAdapter.toObservable()
-          .repeat()
-          .distinct()
-          .doOnUnsubscribe(new Action0() {
-            @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2) @Override public void call() {
-              bluetoothAdapter.stopLeScan(leScanCallbackAdapter);
-            }
-          });
+  @SuppressWarnings("deprecation") @SuppressLint("NewApi") public Observable<Beacon> observe() {
+    if (!isBleSupported()) {
+      return Observable.empty();
     }
 
-    return Observable.empty();
+    leScanCallbackAdapter = new LeScanCallbackAdapter();
+    bluetoothAdapter.startLeScan(leScanCallbackAdapter);
+
+    return leScanCallbackAdapter.toObservable().repeat().distinct().doOnUnsubscribe(new Action0() {
+      @Override public void call() {
+        bluetoothAdapter.stopLeScan(leScanCallbackAdapter);
+      }
+    });
   }
 
   /**
