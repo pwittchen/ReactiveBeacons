@@ -1,6 +1,16 @@
 CHANGELOG
 =========
 
+v. 0.2.0
+--------
+*11 Oct 2015*
+
+- decreased min SDK version to 9
+- added `isBleSupported()` method to the public API
+- if BLE is not supported by the device, library emits an empty Observable
+- updated exemplary app
+- updated documentation in `README.md` file
+
 v. 0.1.0
 --------
 *05 Oct 2015*
