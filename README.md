@@ -25,6 +25,9 @@ Contents
 --------
 - [Usage](#usage)
 - [Good practices](#good-practices)
+  - [Updating Manifest](#updating-manifest)
+  - [Checking BLE support](#checking-ble-support)
+  - [Requesting Bluetooth access](#requesting-bluetooth-access)
 - [Example](#example)
 - [Beacon class](#beacon-class)
 - [Filter class](#filter-class)
@@ -92,7 +95,7 @@ Unsubscribe subscription in `onPause()` method to stop BLE scan.
 Good practices
 --------------
 
-### Manifest
+### Updating Manifest
 
 Add `<uses-feature .../>` tag inside `<manifest ...>` tag in `AndroidManifest.xml` file in your application if you support Android devices with API level 18 or higher. You can skip this, if you are supporting lower API levels.
 
