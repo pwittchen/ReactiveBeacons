@@ -11,7 +11,7 @@ import android.provider.Settings;
 
 public class AccessRequester {
   private static final String EMPTY_STRING = "";
-  private BluetoothAdapter bluetoothAdapter;
+  private final BluetoothAdapter bluetoothAdapter;
 
   public AccessRequester(BluetoothAdapter bluetoothAdapter) {
     this.bluetoothAdapter = bluetoothAdapter;
