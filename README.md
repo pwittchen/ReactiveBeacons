@@ -8,12 +8,15 @@ Android library scanning BLE (Bluetooth Low Energy) beacons nearby with RxJava
 
 Library was tested with Estimote and Kontakt beacons.
 
-This library has limited functionality, but its API is very simple and has just four methods:
+This library has limited functionality, but its API is very simple:
 
 ```java
 ReactiveBeacons(context)
 boolean isBleSupported()
-void requestBluetoothAccessIfDisabled(activity)
+boolean isBluetoothEnabled()
+boolean isLocationEnabled(context)
+void requestBluetoothAccess(activity)
+void requestLocationAccess(activity)
 Observable<Beacon> observe()
 ```
 
@@ -28,6 +31,7 @@ Contents
   - [Updating Manifest](#updating-manifest)
   - [Checking BLE support](#checking-ble-support)
   - [Requesting Bluetooth access](#requesting-bluetooth-access)
+  - [Requesting Location access](#requesting-location-access)
 - [Example](#example)
 - [Beacon class](#beacon-class)
 - [Filter class](#filter-class)
@@ -63,14 +67,12 @@ private Subscription subscription;
   
   if (!reactiveBeacons.isBleSupported()) { // optional, but recommended step
     // show message for the user that BLE is not supported on the device
-  } else {
-    // optionally, we can request Bluetooth Access
-    reactiveBeacons.requestBluetoothAccessIfDisabled(this);
+    return;
   }
 
   subscription = reactiveBeacons.observe()
-    .observeOn(AndroidSchedulers.mainThread())
     .subscribeOn(Schedulers.io())
+    .observeOn(AndroidSchedulers.mainThread())
     .subscribe(new Action1<Beacon>() {
       @Override public void call(Beacon beacon) {
         // do something with beacon
@@ -86,7 +88,9 @@ Unsubscribe subscription in `onPause()` method to stop BLE scan.
 ```java
 @Override protected void onPause() {
   super.onPause();
-  subscription.unsubscribe();
+  if (subscription != null && !subscription.isUnsubscribed()) {
+    subscription.unsubscribe();
+  }
 }
 ```
 
@@ -119,14 +123,26 @@ If BLE is not supported, Observable emitting Beacons will be always empty.
 
 ### Requesting Bluetooth access
 
-Use `requestBluetoothAccessIfDisabled(context)` method to ensure that Bluetooth is enabled.
+Use `requestBluetoothAccess(activity)` method to ensure that Bluetooth is enabled.
 If you are supporting devices with API level lower than 18, you don't have to request Bluetooth access every time.
 
 ```java
-if (!reactiveBeacons.isBleSupported()) {
-  // show message for the user that BLE is not supported on the device
-} else {
-  reactiveBeacons.requestBluetoothAccessIfDisabled(context);
+if (!reactiveBeacons.isBluetoothEnabled()) {
+  reactiveBeacons.requestBluetoothAccess(activity);
+}
+```
+
+### Requesting Location access
+
+Since API 23 (Android 6 - Marshmallow), Bluetooth Low Energy scan, requires `ACCESS_COARSE_LOCATION` and `ACCESS_FINE_LOCATION` permissions.
+Moreover, we need to enable Location services in order to scan BLE beacons. You don't have to worry about that if your apps are targeted to lower APIs than 23.
+Nevertheless, you have to be aware of that, if you want to detect beacons on the newest versions of Android.
+Use `requestLocationAccess(activity)` method to ensure that Location services are enabled.
+If you are supporting devices with API level lower than 18, you don't have to request Location access every time.
+
+```java
+if (!reactiveBeacons.isLocationEnabled(activity)) {
+  reactiveBeacons.requestLocationAccess(activity);
 }
 ```
 

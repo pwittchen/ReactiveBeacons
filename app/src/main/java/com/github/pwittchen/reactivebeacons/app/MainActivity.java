@@ -15,8 +15,8 @@
  */
 package com.github.pwittchen.reactivebeacons.app;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -33,7 +33,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
   private static final String ITEM_FORMAT = "MAC: %s, RSSI: %d\ndistance: %.2fm, proximity: %s\n%s";
   private ReactiveBeacons reactiveBeacons;
   private Subscription subscription;
@@ -51,21 +51,36 @@ public class MainActivity extends AppCompatActivity {
   @Override protected void onResume() {
     super.onResume();
 
-    if (!reactiveBeacons.isBleSupported()) {
-      Toast.makeText(this, "BLE is not supported on this device", Toast.LENGTH_SHORT).show();
-    } else {
-      reactiveBeacons.requestBluetoothAccessIfDisabled(this);
+    if (!canObserveBeacons()) {
+      return;
     }
 
     subscription = reactiveBeacons.observe()
-        .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
         .subscribe(new Action1<Beacon>() {
           @Override public void call(Beacon beacon) {
             beacons.put(beacon.device.getAddress(), beacon);
             refreshBeaconList();
           }
         });
+  }
+
+  private boolean canObserveBeacons() {
+    if (!reactiveBeacons.isBleSupported()) {
+      Toast.makeText(this, "BLE is not supported on this device", Toast.LENGTH_SHORT).show();
+      return false;
+    }
+
+    if (!reactiveBeacons.isBluetoothEnabled()) {
+      reactiveBeacons.requestBluetoothAccess(this);
+      return false;
+    } else if (!reactiveBeacons.isLocationEnabled(this)) {
+      reactiveBeacons.requestLocationAccess(this);
+      return false;
+    }
+
+    return true;
   }
 
   private void refreshBeaconList() {
@@ -90,6 +105,8 @@ public class MainActivity extends AppCompatActivity {
 
   @Override protected void onPause() {
     super.onPause();
-    subscription.unsubscribe();
+    if (subscription != null && !subscription.isUnsubscribed()) {
+      subscription.unsubscribe();
+    }
   }
 }
