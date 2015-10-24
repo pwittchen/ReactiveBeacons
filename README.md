@@ -69,6 +69,11 @@ private Subscription subscription;
     // show message for the user that BLE is not supported on the device
     return;
   }
+  
+  // we should check Bluetooth and Location access here
+  // if they're disabled, we can request access
+  // if you want to know how to do it, check next sections 
+  // of this documentation and sample app
 
   subscription = reactiveBeacons.observe()
     .subscribeOn(Schedulers.io())
