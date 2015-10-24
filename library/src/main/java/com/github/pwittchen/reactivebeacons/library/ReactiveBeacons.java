@@ -76,7 +76,7 @@ public class ReactiveBeacons {
     leScanCallbackAdapter = new LeScanCallbackAdapter();
     bluetoothAdapter.startLeScan(leScanCallbackAdapter);
 
-    return leScanCallbackAdapter.toObservable().repeat().distinct().doOnUnsubscribe(new Action0() {
+    return leScanCallbackAdapter.toObservable().repeat().distinctUntilChanged().doOnUnsubscribe(new Action0() {
       @Override public void call() {
         bluetoothAdapter.stopLeScan(leScanCallbackAdapter);
       }
