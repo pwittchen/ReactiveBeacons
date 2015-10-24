@@ -20,7 +20,6 @@ import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
 import rx.Observable;
 import rx.functions.Action0;
@@ -31,6 +30,7 @@ import rx.functions.Action0;
 public class ReactiveBeacons {
   private BluetoothAdapter bluetoothAdapter;
   private LeScanCallbackAdapter leScanCallbackAdapter;
+  private AccessRequester accessRequester;
 
   /**
    * Initializes ReactiveBeacons object
@@ -43,7 +43,27 @@ public class ReactiveBeacons {
 
     if (isBleSupported()) {
       bluetoothAdapter = manager.getAdapter();
+      accessRequester = new AccessRequester(bluetoothAdapter);
     }
+  }
+
+  /**
+   * Checks if Bluetooth is enabled
+   *
+   * @return boolean true if enabled
+   */
+  public boolean isBluetoothEnabled() {
+    return accessRequester.isBluetoothEnabled();
+  }
+
+  /**
+   * Checks if location provider is enabled
+   *
+   * @param context current Context
+   * @return boolean true if enabled
+   */
+  public boolean isLocationEnabled(Context context) {
+    return accessRequester.isLocationEnabled(context);
   }
 
   /**
@@ -52,15 +72,18 @@ public class ReactiveBeacons {
    *
    * @param activity current Activity
    */
-  public void requestBluetoothAccessIfDisabled(Activity activity) {
-    boolean isBluetoothEnabled = bluetoothAdapter != null && bluetoothAdapter.isEnabled();
+  public void requestBluetoothAccess(Activity activity) {
+    accessRequester.requestBluetoothAccess(activity);
+  }
 
-    if (isBluetoothEnabled) {
-      return;
-    }
-
-    Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-    activity.startActivityForResult(intent, Activity.RESULT_FIRST_USER);
+  /**
+   * starts dialog, which can navigate user to location setting, where user can enable location
+   * if it's not enabled already
+   *
+   * @param activity current Activity
+   */
+  public void requestLocationAccess(final Activity activity) {
+    accessRequester.requestLocationAccess(activity);
   }
 
   /**
@@ -76,11 +99,14 @@ public class ReactiveBeacons {
     leScanCallbackAdapter = new LeScanCallbackAdapter();
     bluetoothAdapter.startLeScan(leScanCallbackAdapter);
 
-    return leScanCallbackAdapter.toObservable().repeat().distinctUntilChanged().doOnUnsubscribe(new Action0() {
-      @Override public void call() {
-        bluetoothAdapter.stopLeScan(leScanCallbackAdapter);
-      }
-    });
+    return leScanCallbackAdapter.toObservable()
+        .repeat()
+        .distinctUntilChanged()
+        .doOnUnsubscribe(new Action0() {
+          @Override public void call() {
+            bluetoothAdapter.stopLeScan(leScanCallbackAdapter);
+          }
+        });
   }
 
   /**
