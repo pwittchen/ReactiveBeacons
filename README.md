@@ -37,6 +37,7 @@ Contents
 - [Beacon class](#beacon-class)
 - [Filter class](#filter-class)
 - [Download](#download)
+- [Tests](#tests)
 - [Code style](#code-style)
 - [References](#references)
 - [License](#license)
@@ -142,9 +143,7 @@ if (!reactiveBeacons.isBluetoothEnabled()) {
 
 Since API 23 (Android 6 - Marshmallow), Bluetooth Low Energy scan, requires `ACCESS_COARSE_LOCATION` and `ACCESS_FINE_LOCATION` permissions.
 Moreover, we need to enable Location services in order to scan BLE beacons. You don't have to worry about that if your apps are targeted to lower APIs than 23.
-Nevertheless, you have to be aware of that, if you want to detect beacons on the newest versions of Android.
-Use `requestLocationAccess(activity)` method to ensure that Location services are enabled.
-If you are supporting devices with API level lower than 18, you don't have to request Location access every time.
+Nevertheless, you have to be aware of that, if you want to detect beacons on the newest versions of Android. Read more at: https://code.google.com/p/android/issues/detail?id=190372. Use `requestLocationAccess(activity)` method to ensure that Location services are enabled. If you are supporting devices with API level lower than 18, you don't have to request Location access every time.
 
 ```java
 if (!reactiveBeacons.isLocationEnabled(activity)) {
@@ -174,6 +173,8 @@ private boolean canObserveBeacons() {
   return true;
 }
 ```
+
+You can adjust this snippet to your needs or handle this logic in your own way.
 
 After that, we can perform the following operation:
 
@@ -262,6 +263,15 @@ or through Gradle:
 dependencies {
   compile 'com.github.pwittchen:reactivebeacons:0.2.0'
 }
+```
+
+Tests
+-----
+
+Tests are available in `library/src/androidTest/java/` directory and can be executed on emulator or Android device from Android Studio or CLI with the following command:
+
+```
+./gradlew connectedCheck
 ```
 
 Code style
