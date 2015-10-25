@@ -32,6 +32,7 @@ Contents
   - [Checking BLE support](#checking-ble-support)
   - [Requesting Bluetooth access](#requesting-bluetooth-access)
   - [Requesting Location access](#requesting-location-access)
+  - [Exemplary code snippet](#exemplary-code-snippet)
 - [Example](#example)
 - [Beacon class](#beacon-class)
 - [Filter class](#filter-class)
@@ -148,6 +149,37 @@ If you are supporting devices with API level lower than 18, you don't have to re
 ```java
 if (!reactiveBeacons.isLocationEnabled(activity)) {
   reactiveBeacons.requestLocationAccess(activity);
+}
+```
+
+### Exemplary code snippet
+
+With API methods, we can create the following code snippet:
+
+```java
+private boolean canObserveBeacons() {
+  if (!reactiveBeacons.isBleSupported()) {
+    Toast.makeText(this, "BLE is not supported on this device", Toast.LENGTH_SHORT).show();
+    return false;
+  }
+
+  if (!reactiveBeacons.isBluetoothEnabled()) {
+    reactiveBeacons.requestBluetoothAccess(this);
+    return false;
+  } else if (!reactiveBeacons.isLocationEnabled(this)) {
+    reactiveBeacons.requestLocationAccess(this);
+    return false;
+  }
+
+  return true;
+}
+```
+
+After that, we can perform the following operation:
+
+```java
+if(canObserveBeacons()) {
+  // observe beacons here
 }
 ```
 
