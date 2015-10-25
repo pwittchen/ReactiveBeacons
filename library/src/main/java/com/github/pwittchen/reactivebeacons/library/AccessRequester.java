@@ -9,7 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.provider.Settings;
 
-public class AccessRequester {
+class AccessRequester {
   private static final String EMPTY_STRING = "";
   private final BluetoothAdapter bluetoothAdapter;
 
