@@ -174,7 +174,7 @@ private boolean canObserveBeacons() {
 }
 ```
 
-You can adjust this snippet to your needs.
+You can adjust this snippet to your needs or handle this logic in your own way.
 
 After that, we can perform the following operation:
 
