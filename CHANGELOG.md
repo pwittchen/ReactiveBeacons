@@ -1,6 +1,20 @@
 CHANGELOG
 =========
 
+v. 0.3.0
+--------
+*25 Oct 2015*
+
+- replaced `distinct()` operator with `distinctUntilChanged()` operator in `Observable<Beacon> observe()` method in `ReactiveBeacons` class.
+- added permissions `ACCESS_FINE_LOCATION` and `ACCESS_COARSE_LOCATION` to satisfy requirements of Android 6
+- renamed `void requestBluetoothAccessIfDisabled(activity)` method to `void requestBluetoothAccess(activity)`
+- added `boolean isBluetoothEnabled()` method
+- added `boolean isLocationEnabled(context)` method
+- added `void requestLocationAccess(activity)` method
+- modified sample app in order to make it work in Android 6 Marshmallow
+- reduced target API from 23 to 22 in library due to problems with additional permissions and new permission model (it can be subject of improvements in the next releases)
+- added package private `AccessRequester` class
+
 v. 0.2.0
 --------
 *11 Oct 2015*
