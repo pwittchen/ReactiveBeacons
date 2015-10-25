@@ -11,7 +11,7 @@ v. 0.3.0
 - added `boolean isBluetoothEnabled()` method
 - added `boolean isLocationEnabled(context)` method
 - added `void requestLocationAccess(activity)` method
-- modified sample app in order to make it work in Android 6 Marshmallow
+- modified sample app in order to make it work on Android 6 Marshmallow
 - reduced target API from 23 to 22 in library due to problems with additional permissions and new permission model (it can be subject of improvements in the next releases)
 - added package private `AccessRequester` class
 
