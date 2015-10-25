@@ -37,6 +37,7 @@ Contents
 - [Beacon class](#beacon-class)
 - [Filter class](#filter-class)
 - [Download](#download)
+- [Tests](#tests)
 - [Code style](#code-style)
 - [References](#references)
 - [License](#license)
@@ -173,6 +174,8 @@ private boolean canObserveBeacons() {
 }
 ```
 
+You can adjust this snippet to your needs.
+
 After that, we can perform the following operation:
 
 ```java
@@ -260,6 +263,15 @@ or through Gradle:
 dependencies {
   compile 'com.github.pwittchen:reactivebeacons:0.2.0'
 }
+```
+
+Tests
+-----
+
+Tests are available in `library/src/androidTest/java/` directory and can be executed on emulator or Android device from Android Studio or CLI with the following command:
+
+```
+./gradlew connectedCheck
 ```
 
 Code style
