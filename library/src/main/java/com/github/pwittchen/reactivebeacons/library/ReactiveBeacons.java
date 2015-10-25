@@ -53,6 +53,7 @@ public class ReactiveBeacons {
    * @return boolean true if enabled
    */
   public boolean isBluetoothEnabled() {
+    checkAccessRequesterIsNotNull();
     return accessRequester.isBluetoothEnabled();
   }
 
@@ -63,6 +64,7 @@ public class ReactiveBeacons {
    * @return boolean true if enabled
    */
   public boolean isLocationEnabled(Context context) {
+    checkAccessRequesterIsNotNull();
     return accessRequester.isLocationEnabled(context);
   }
 
@@ -73,6 +75,7 @@ public class ReactiveBeacons {
    * @param activity current Activity
    */
   public void requestBluetoothAccess(Activity activity) {
+    checkAccessRequesterIsNotNull();
     accessRequester.requestBluetoothAccess(activity);
   }
 
@@ -83,7 +86,14 @@ public class ReactiveBeacons {
    * @param activity current Activity
    */
   public void requestLocationAccess(final Activity activity) {
+    checkAccessRequesterIsNotNull();
     accessRequester.requestLocationAccess(activity);
+  }
+
+  private void checkAccessRequesterIsNotNull() {
+    if (accessRequester == null) {
+      throw new IllegalStateException("BLE is not supported, so cannot create AccessRequester");
+    }
   }
 
   /**
