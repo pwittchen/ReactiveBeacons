@@ -27,13 +27,13 @@ public class Filter {
   public static Func1<Beacon, Boolean> proximityIsEqualTo(final Proximity... proximities) {
     return new Func1<Beacon, Boolean>() {
       @Override public Boolean call(Beacon beacon) {
-        boolean proximitiesAreEqual = false;
-
         for (Proximity proximity : proximities) {
-          proximitiesAreEqual = beacon.getProximity() == proximity;
+          if (beacon.getProximity() == proximity) {
+            return true;
+          }
         }
 
-        return proximitiesAreEqual;
+        return false;
       }
     };
   }
@@ -41,13 +41,13 @@ public class Filter {
   public static Func1<Beacon, Boolean> proximityIsNotEqualTo(final Proximity... proximities) {
     return new Func1<Beacon, Boolean>() {
       @Override public Boolean call(Beacon beacon) {
-        boolean proximitiesAreEqual = false;
-
         for (Proximity proximity : proximities) {
-          proximitiesAreEqual = beacon.getProximity() != proximity;
+          if (beacon.getProximity() != proximity) {
+            return true;
+          }
         }
 
-        return proximitiesAreEqual;
+        return false;
       }
     };
   }
@@ -79,13 +79,13 @@ public class Filter {
   public static Func1<Beacon, Boolean> hasName(final String... names) {
     return new Func1<Beacon, Boolean>() {
       @Override public Boolean call(Beacon beacon) {
-        boolean namesAreEqual = false;
-
         for (String name : names) {
-          namesAreEqual = beacon.device.getName().equals(name);
+          if (beacon.device.getName().equals(name)) {
+            return true;
+          }
         }
 
-        return namesAreEqual;
+        return false;
       }
     };
   }
@@ -93,13 +93,13 @@ public class Filter {
   public static Func1<Beacon, Boolean> hasMacAddress(final String... macs) {
     return new Func1<Beacon, Boolean>() {
       @Override public Boolean call(Beacon beacon) {
-        boolean macsAreEqual = false;
-
         for (String mac : macs) {
-          macsAreEqual = beacon.device.getAddress().equals(mac);
+          if(beacon.device.getAddress().equals(mac)) {
+            return true;
+          }
         }
 
-        return macsAreEqual;
+        return false;
       }
     };
   }
