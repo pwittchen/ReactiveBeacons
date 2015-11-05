@@ -37,6 +37,7 @@ public class Beacon {
 
   /**
    * Gets distance from BLE beacon to mobile device in meters
+   *
    * @return distance in meters as double
    */
   public double getDistance() {
@@ -47,8 +48,15 @@ public class Beacon {
     double distance = getDistance();
     Proximity immediate = Proximity.IMMEDIATE;
     Proximity near = Proximity.NEAR;
-    if (distance < immediate.maxDistance) return immediate;
-    if (distance >= near.minDistance && distance <= near.maxDistance) return near;
+
+    if (distance < immediate.maxDistance) {
+      return immediate;
+    }
+
+    if (distance >= near.minDistance && distance <= near.maxDistance) {
+      return near;
+    }
+
     return Proximity.FAR;
   }
 
@@ -57,20 +65,28 @@ public class Beacon {
   }
 
   @Override public String toString() {
-    return "Beacon{" +
-        "device=" + device +
-        ", rssi=" + rssi +
-        '}';
+    return "Beacon{device=" + device + ", rssi=" + rssi + '}';
   }
 
   @Override public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {
+      return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
 
     Beacon beacon = (Beacon) o;
 
-    if (rssi != beacon.rssi) return false;
-    if (!device.equals(beacon.device)) return false;
+    if (rssi != beacon.rssi) {
+      return false;
+    }
+
+    if (!device.equals(beacon.device)) {
+      return false;
+    }
+
     return Arrays.equals(scanRecord, beacon.scanRecord);
   }
 
