@@ -94,7 +94,7 @@ public class Filter {
     return new Func1<Beacon, Boolean>() {
       @Override public Boolean call(Beacon beacon) {
         for (String mac : macs) {
-          if(beacon.device.getAddress().equals(mac)) {
+          if (beacon.device.getAddress().equals(mac)) {
             return true;
           }
         }

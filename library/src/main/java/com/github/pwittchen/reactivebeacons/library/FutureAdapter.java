@@ -19,13 +19,13 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 public class FutureAdapter implements Future<Beacon> {
-  private boolean isDone;
+  private boolean done;
   private Beacon beacon;
 
   public void setBeacon(Beacon beacon) {
     synchronized (this) {
       this.beacon = beacon;
-      this.isDone = true;
+      this.done = true;
       this.notify();
     }
   }
@@ -39,7 +39,7 @@ public class FutureAdapter implements Future<Beacon> {
   }
 
   @Override public boolean isDone() {
-    return isDone;
+    return done;
   }
 
   @Override public Beacon get() throws InterruptedException {
