@@ -1,6 +1,17 @@
 CHANGELOG
 =========
 
+v. 0.3.1
+--------
+*09 Nov 2015*
+
+- improved filters in PR #24
+- fixed RxJava usage in sample app
+- fixed RxJava usage in code snippets in `README.md`
+- added static code analysis
+- added sample app in Kotlin
+- added sample app with Android Service
+
 v. 0.3.0
 --------
 *25 Oct 2015*
