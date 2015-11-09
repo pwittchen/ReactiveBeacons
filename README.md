@@ -33,7 +33,7 @@ Contents
   - [Requesting Bluetooth access](#requesting-bluetooth-access)
   - [Requesting Location access](#requesting-location-access)
   - [Exemplary code snippet](#exemplary-code-snippet)
-- [Example](#example)
+- [Examples](#examples)
 - [Beacon class](#beacon-class)
 - [Filter class](#filter-class)
 - [Download](#download)
@@ -185,12 +185,14 @@ if(canObserveBeacons()) {
 }
 ```
 
-Example
--------
+Examples
+--------
 
 Exemplary application is located in `app` directory of this repository.
 
 If you want to know, how to use this library with Kotlin, check `app-kotlin` sample.
+
+If you would like to know, how to use library inside Android Service, check `app-service` sample.
 
 Beacon class
 ------------
