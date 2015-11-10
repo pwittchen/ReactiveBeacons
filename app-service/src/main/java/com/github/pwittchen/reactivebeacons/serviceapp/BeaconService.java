@@ -10,7 +10,6 @@ import com.github.pwittchen.reactivebeacons.library.ReactiveBeacons;
 import java.util.HashMap;
 import java.util.Map;
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
@@ -32,7 +31,6 @@ public class BeaconService extends Service {
 
     subscription = reactiveBeacons.observe()
         .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
         .subscribe(new Action1<Beacon>() {
           @Override public void call(Beacon beacon) {
             beacons.put(beacon.device.getAddress(), beacon);
