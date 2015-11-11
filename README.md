@@ -258,7 +258,7 @@ You can depend on the library through Maven:
 <dependency>
     <groupId>com.github.pwittchen</groupId>
     <artifactId>reactivebeacons</artifactId>
-    <version>0.3.1</version>
+    <version>0.3.2</version>
 </dependency>
 ```
 
@@ -266,7 +266,7 @@ or through Gradle:
 
 ```groovy
 dependencies {
-  compile 'com.github.pwittchen:reactivebeacons:0.3.1'
+  compile 'com.github.pwittchen:reactivebeacons:0.3.2'
 }
 ```
 
