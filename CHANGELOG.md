@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+v. 0.3.2
+--------
+*11 Nov 2015*
+
+- bug fix: wrapped `BluetoothManager` inside `isBleSupported()` to avoid `NoClassDefFound` error occurring while instantiating `ReactiveBeacons` object on devices running API < 18 - fixed in PR #30.
+
 v. 0.3.1
 --------
 *09 Nov 2015*
