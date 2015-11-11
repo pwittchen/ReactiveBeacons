@@ -39,9 +39,9 @@ public class ReactiveBeacons {
    */
   @SuppressLint("NewApi") public ReactiveBeacons(Context context) {
     String bluetoothService = Context.BLUETOOTH_SERVICE;
-    BluetoothManager manager = (BluetoothManager) context.getSystemService(bluetoothService);
 
     if (isBleSupported()) {
+      BluetoothManager manager = (BluetoothManager) context.getSystemService(bluetoothService);
       bluetoothAdapter = manager.getAdapter();
       accessRequester = new AccessRequester(bluetoothAdapter);
     }
