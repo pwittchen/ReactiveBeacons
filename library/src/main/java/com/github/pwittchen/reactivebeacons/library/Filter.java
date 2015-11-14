@@ -90,11 +90,67 @@ public class Filter {
     };
   }
 
+  public static Func1<Beacon, Boolean> exceptName(final String... names) {
+    return new Func1<Beacon, Boolean>() {
+      @Override public Boolean call(Beacon beacon) {
+        for (String name : names) {
+          if (!beacon.device.getName().equals(name)) {
+            return true;
+          }
+        }
+
+        return false;
+      }
+    };
+  }
+
   public static Func1<Beacon, Boolean> hasMacAddress(final String... macs) {
     return new Func1<Beacon, Boolean>() {
       @Override public Boolean call(Beacon beacon) {
         for (String mac : macs) {
           if (beacon.device.getAddress().equals(mac)) {
+            return true;
+          }
+        }
+
+        return false;
+      }
+    };
+  }
+
+  public static Func1<Beacon, Boolean> exceptMacAddress(final String... macs) {
+    return new Func1<Beacon, Boolean>() {
+      @Override public Boolean call(Beacon beacon) {
+        for (String mac : macs) {
+          if (!beacon.device.getAddress().equals(mac)) {
+            return true;
+          }
+        }
+
+        return false;
+      }
+    };
+  }
+
+  public static Func1<Beacon, Boolean> hasMacAddress(final MacAddress... macs) {
+    return new Func1<Beacon, Boolean>() {
+      @Override public Boolean call(Beacon beacon) {
+        for (MacAddress mac : macs) {
+          if (beacon.macAddress.equals(mac)) {
+            return true;
+          }
+        }
+
+        return false;
+      }
+    };
+  }
+
+  public static Func1<Beacon, Boolean> exceptMacAddress(final MacAddress... macs) {
+    return new Func1<Beacon, Boolean>() {
+      @Override public Boolean call(Beacon beacon) {
+        for (MacAddress mac : macs) {
+          if (!beacon.macAddress.equals(mac)) {
             return true;
           }
         }

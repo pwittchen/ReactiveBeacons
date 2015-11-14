@@ -135,4 +135,24 @@ import static org.mockito.Mockito.when;
     // then
     assertThat(call).isTrue();
   }
+
+  @Test public void macAddressShouldBeValid() {
+    // given
+    String address = "00:27:0e:2a:b9:aa";
+
+    // when
+    MacAddress macAddress = new MacAddress(address);
+
+    assertThat(macAddress).isNotNull(); // and no exception is thrown
+  }
+
+  @Test(expected = IllegalArgumentException.class) public void macAddressShouldBeInvalid() {
+    // given
+    String address = "invalid mac address";
+
+    // when
+    MacAddress macAddress = new MacAddress(address);
+
+    // then throw IllegalArgumentException
+  }
 }
