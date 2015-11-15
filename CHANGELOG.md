@@ -1,6 +1,17 @@
 CHANGELOG
 =========
 
+v. 0.4.0
+--------
+*15 Nov 2015*
+
+- added `MacAddress` class with MAC address validation
+- added `macAddress` field to `Beacon` class
+- added `exceptName(final String... names)` method to `Filter` class
+- added `exceptMacAddress(final String... macs)` method to `Filter` class
+- added `hasMacAddress(final MacAddress... macs)` method to `Filter` class
+- added `exceptMacAddress(final MacAddress... macs)` method to `Filter` class 
+
 v. 0.3.2
 --------
 *11 Nov 2015*
