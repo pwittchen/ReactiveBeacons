@@ -22,14 +22,14 @@ public class Beacon {
   public final BluetoothDevice device;
   public final int rssi; // Received Signal Strength Indication
   public final byte[] scanRecord;
-  public final int txPower; // The Transmit Power Level characteristic in dBm
+  public final int txPower; // The Transmit Power Level characteristics in dBm
   public final MacAddress macAddress;
 
   public Beacon(BluetoothDevice device, int rssi, byte[] scanRecord) {
     this.device = device;
     this.rssi = rssi;
     this.scanRecord = scanRecord;
-    this.txPower = -59; // default value in for Estimote and Kontakt.io beacons
+    this.txPower = -59; // default value for Estimote and Kontakt.io beacons
     this.macAddress = new MacAddress(device.getAddress()); // contains validated MAC address
   }
 
