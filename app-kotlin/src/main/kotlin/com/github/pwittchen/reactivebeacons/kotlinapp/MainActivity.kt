@@ -6,74 +6,76 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.github.pwittchen.reactivebeacons.library.Beacon
 import com.github.pwittchen.reactivebeacons.library.ReactiveBeacons
-import kotlinx.android.synthetic.activity_main.lv_beacons
+import kotlinx.android.synthetic.main.activity_main.lv_beacons
 import rx.Subscription
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
-import java.util.*
+import java.util.ArrayList
+import java.util.HashMap
 
 class MainActivity : Activity() {
-    private var subscription: Subscription? = null
-    private var beacons: MutableMap<String, Beacon> = HashMap()
+  private var subscription: Subscription? = null
+  private var beacons: MutableMap<String, Beacon> = HashMap()
 
-    companion object {
-        private val BEACON = "MAC: %s, RSSI: %d\ndistance: %.2fm, proximity: %s\n%s"
+  companion object {
+    private val BEACON = "MAC: %s, RSSI: %d\ndistance: %.2fm, proximity: %s\n%s"
+    private val BLE_NOT_SUPPORTED = "BLE is not supported on this device";
+  }
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_main)
+  }
+
+  override fun onResume() {
+    super.onResume()
+    val reactiveBeacons: ReactiveBeacons = ReactiveBeacons(this)
+
+    if (!canObserveBeacons(reactiveBeacons)) {
+      return
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    subscription = reactiveBeacons.observe()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe { beacon -> beacons.put(beacon.device.address, beacon); refreshBeacons() }
+  }
+
+  private fun canObserveBeacons(reactiveBeacons: ReactiveBeacons): Boolean {
+    if (!reactiveBeacons.isBleSupported) {
+      Toast.makeText(this, BLE_NOT_SUPPORTED, Toast.LENGTH_SHORT).show()
+      return false
     }
 
-    override fun onResume() {
-        super.onResume()
-        val reactiveBeacons: ReactiveBeacons = ReactiveBeacons(this)
-
-        if (!canObserveBeacons(reactiveBeacons)) {
-            return
-        }
-
-        subscription = reactiveBeacons.observe()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { beacon -> beacons.put(beacon.device.address, beacon); refreshBeacons() }
+    if (!reactiveBeacons.isBluetoothEnabled) {
+      reactiveBeacons.requestBluetoothAccess(this)
+      return false
+    } else if (!reactiveBeacons.isLocationEnabled(this)) {
+      reactiveBeacons.requestLocationAccess(this)
+      return false
     }
 
-    private fun canObserveBeacons(reactiveBeacons: ReactiveBeacons): Boolean {
-        if (!reactiveBeacons.isBleSupported) {
-            Toast.makeText(this, "BLE is not supported on this device", Toast.LENGTH_SHORT).show()
-            return false
-        }
+    return true
+  }
 
-        if (!reactiveBeacons.isBluetoothEnabled) {
-            reactiveBeacons.requestBluetoothAccess(this)
-            return false
-        } else if (!reactiveBeacons.isLocationEnabled(this)) {
-            reactiveBeacons.requestLocationAccess(this)
-            return false
-        }
+  private fun refreshBeacons() {
+    val list = ArrayList<String>()
 
-        return true
+    for (b in beacons.values) {
+      list.add(BEACON.format(b.device.address, b.rssi, b.distance, b.proximity, b.device.name))
     }
 
-    private fun refreshBeacons() {
-        val list = ArrayList<String>()
+    lv_beacons.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, list)
+  }
 
-        for (b in beacons.values) {
-            list.add(BEACON.format(b.device.address, b.rssi, b.distance, b.proximity, b.device.name))
-        }
+  override fun onPause() {
+    super.onPause()
+    safelyUnsubscribe(subscription)
+  }
 
-        lv_beacons.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, list)
+  private fun safelyUnsubscribe(subscription: Subscription?) {
+    if (subscription != null && !subscription.isUnsubscribed) {
+      subscription.unsubscribe()
     }
-
-    override fun onPause() {
-        super.onPause()
-        safelyUnsubscribe(subscription)
-    }
-
-    private fun safelyUnsubscribe(subscription: Subscription?) {
-        if (subscription != null && !subscription.isUnsubscribed) {
-            subscription.unsubscribe()
-        }
-    }
+  }
 }
