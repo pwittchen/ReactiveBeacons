@@ -308,6 +308,7 @@ References
 - [Estimating beacon proximity/distance based on RSSI - Bluetooth LE](http://stackoverflow.com/questions/22784516/estimating-beacon-proximity-distance-based-on-rssi-bluetooth-le)
 - [RSSI (Received Signal Strength Indication) on Wikipedia](https://en.wikipedia.org/wiki/Received_signal_strength_indication)
 - [Specification for Eddystone, an open beacon format from Google](https://github.com/google/eddystone)
+- [Bluetooth Low Energy on Android Developer Guide](http://developer.android.com/guide/topics/connectivity/bluetooth-le.html)
 
 ### Producers of BLE beacons
 
