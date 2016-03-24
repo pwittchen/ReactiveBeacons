@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 Piotr Wittchen
+ * Copyright (C) 2016 Piotr Wittchen
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,19 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.pwittchen.reactivebeacons.library;
+package com.github.pwittchen.reactivebeacons.library.scan.strategy.lollipop;
 
-import android.annotation.SuppressLint;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
+import android.annotation.TargetApi;
+import android.bluetooth.le.ScanCallback;
+import android.bluetooth.le.ScanResult;
+import android.os.Build;
+import com.github.pwittchen.reactivebeacons.library.Beacon;
+import com.github.pwittchen.reactivebeacons.library.FutureAdapter;
 import rx.Observable;
 
-@SuppressLint("NewApi") public class LeScanCallbackAdapter
-    implements BluetoothAdapter.LeScanCallback {
+@TargetApi(Build.VERSION_CODES.LOLLIPOP) public class ScanCallbackAdapter extends ScanCallback {
   private final FutureAdapter futureAdapter = new FutureAdapter();
 
-  @Override public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
-    futureAdapter.setBeacon(Beacon.create(device, rssi, scanRecord));
+  @Override public void onScanResult(int callbackType, ScanResult result) {
+    futureAdapter.setBeacon(Beacon.create(result));
   }
 
   public Observable<Beacon> toObservable() {

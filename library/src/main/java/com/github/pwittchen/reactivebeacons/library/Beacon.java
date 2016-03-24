@@ -15,7 +15,9 @@
  */
 package com.github.pwittchen.reactivebeacons.library;
 
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.le.ScanResult;
 import java.util.Arrays;
 
 public class Beacon {
@@ -35,6 +37,10 @@ public class Beacon {
 
   public static Beacon create(BluetoothDevice device, int rssi, byte[] scanRecord) {
     return new Beacon(device, rssi, scanRecord);
+  }
+
+  @SuppressLint("NewApi") public static Beacon create(ScanResult result) {
+    return create(result.getDevice(), result.getRssi(), result.getScanRecord().getBytes());
   }
 
   /**
