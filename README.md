@@ -79,7 +79,7 @@ private Subscription subscription;
   // of this documentation and sample app
 
   subscription = reactiveBeacons.observe()
-    .subscribeOn(Schedulers.io())
+    .subscribeOn(Schedulers.computation())
     .observeOn(AndroidSchedulers.mainThread())
     .subscribe(new Action1<Beacon>() {
       @Override public void call(Beacon beacon) {
