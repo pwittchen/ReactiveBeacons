@@ -30,7 +30,7 @@ public class BeaconService extends Service {
     }
 
     subscription = reactiveBeacons.observe()
-        .subscribeOn(Schedulers.io())
+        .subscribeOn(Schedulers.computation())
         .subscribe(new Action1<Beacon>() {
           @Override public void call(Beacon beacon) {
             beacons.put(beacon.device.getAddress(), beacon);

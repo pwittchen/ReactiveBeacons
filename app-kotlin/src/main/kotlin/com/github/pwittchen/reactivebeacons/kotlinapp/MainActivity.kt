@@ -36,7 +36,7 @@ class MainActivity : Activity() {
     }
 
     subscription = reactiveBeacons.observe()
-        .subscribeOn(Schedulers.io())
+        .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe { beacon -> beacons.put(beacon.device.address, beacon); refreshBeacons() }
   }
