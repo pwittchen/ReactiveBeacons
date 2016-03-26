@@ -34,6 +34,7 @@ Contents
   - [Requesting Location access](#requesting-location-access)
   - [Exemplary code snippet](#exemplary-code-snippet)
 - [Examples](#examples)
+- [Compatibility with different Android versions](#compatibility-with-different-android-versions)
 - [Beacon class](#beacon-class)
 - [Filter class](#filter-class)
 - [Download](#download)
@@ -193,6 +194,32 @@ Exemplary application is located in `app` directory of this repository.
 If you want to know, how to use this library with Kotlin, check `app-kotlin` sample.
 
 If you would like to know, how to use library inside Android Service, check `app-service` sample.
+
+Compatibility with different Android versions
+---------------------------------------------
+
+BLE scanning is available from Android 4.3 JELLY_BEAN_MR2 (API 18).
+You can use this library on lower versions of Android, but you won't be able to scan BLE devices,
+you should handle that situation in your app and notify user about that. See [Good practices](#good-practices) section.
+Since Android 5.0 LOLLIPOP (API 21), we have different API for BLE scanning.
+That's why this library has two different BLE scanning strategies:
+- `PreLollipopScanStrategy` used for pre-Lollipop devices (from API 18 to 20)
+- `LollipopScanStrategy` used for Lollipop devices (API 21 or higher)
+
+Library automatically chooses proper strategy with `isAtLeastAndroidLollipop()` method,
+which checks version of the system installed on a device.
+Moreover you can force using one of the existing strategies or your own custom scanning strategy
+with the following method available in the library:
+
+```java
+Observable<Beacon> observe(ScanStrategy scanStrategy)
+```
+
+`ScanStrategy` is an interface with the following method:
+
+```java
+Observable<Beacon> observe();
+```
 
 Beacon class
 ------------
