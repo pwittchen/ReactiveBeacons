@@ -198,10 +198,10 @@ If you would like to know, how to use library inside Android Service, check `app
 Compatibility with different Android versions
 ---------------------------------------------
 
-BLE scanning is available from Android 4.3 JELLY_BEAN_MR2 (API 18).
+BLE scanning is available from Android 4.3 `JELLY_BEAN_MR2` (API 18).
 You can use this library on lower versions of Android, but you won't be able to scan BLE devices,
 you should handle that situation in your app and notify user about that. See [Good practices](#good-practices) section.
-Since Android 5.0 LOLLIPOP (API 21), we have different API for BLE scanning.
+Since Android 5.0 `LOLLIPOP` (API 21), we have different API for BLE scanning.
 That's why this library has two different BLE scanning strategies:
 - `PreLollipopScanStrategy` used for pre-Lollipop devices (from API 18 to 20)
 - `LollipopScanStrategy` used for Lollipop devices (API 21 or higher)
