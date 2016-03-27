@@ -207,8 +207,8 @@ That's why this library has two different BLE scanning strategies:
 - `LollipopScanStrategy` used for Lollipop devices (API 21 or higher)
 
 Library automatically chooses proper strategy with `isAtLeastAndroidLollipop()` method,
-which checks version of the system installed on a device.
-Moreover you can force using one of the existing strategies or your own custom scanning strategy
+which checks version of the system installed on a device and uses selected strategy in `Observable<Beacon> observe()` method from the library.
+Moreover, you can force using one of the existing strategies or your own custom scanning strategy
 with the following method available in the library:
 
 ```java
