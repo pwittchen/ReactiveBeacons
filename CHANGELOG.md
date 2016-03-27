@@ -1,6 +1,21 @@
 CHANGELOG
 =========
 
+v. 0.5.0
+--------
+*27 Mar 2016*
+
+- added support for BLE scanning API available on Android API 21 (Lollipop) mentioned in issue #43
+- created two scanning strategies for BLE scanning on pre-Lollipop devices and Lollipop devices
+- updated body of `Observable<Beacon> observe()` method
+- added `PreLollipopScanStrategy` class, `LollipopScanStrategy` class and `ScanStrategy` interface
+- added `ScanCallbackAdapter` class used in `LollipopScanStrategy`
+- added `Observable<Beacon> observe(ScanStrategy scanStrategy)` method to library API, which allows to use one of the existing scan strategies or custom scan strategy
+- added note about Compatibility with different Android versions in `REAMDE.md`
+- bumped RxJava version to `1.1.2`
+- bumped Kotlin version in sample app to `1.0.1-1`
+- changed `Schedulers.io()` in `subscribeOn(...)` to `Schedulers.computation()` in sample apps
+
 v. 0.4.1
 --------
 *13 Dec 2015*
