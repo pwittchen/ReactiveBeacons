@@ -353,6 +353,7 @@ References
   - [LMBluetoothSDK](https://github.com/whilu/LMBluetoothSdk)
   - [Android-Bluetooth-Library](https://github.com/arissa34/Android-Bluetooth-Library)
   - [AndroidSmoothBluetooth](https://github.com/palaima/AndroidSmoothBluetooth)
+  - [BlueDuff](https://github.com/Marchuck/BlueDuff)
 
 License
 -------
