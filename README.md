@@ -8,16 +8,18 @@ Android library scanning BLE (Bluetooth Low Energy) beacons nearby with RxJava
 
 Library was tested with Estimote and Kontakt beacons.
 
-This library has limited functionality, but its API is very simple:
+This library has limited functionality, but its API is simple:
 
 ```java
 ReactiveBeacons(context)
 boolean isBleSupported()
 boolean isBluetoothEnabled()
 boolean isLocationEnabled(context)
+boolean isAtLeastAndroidLollipop()
 void requestBluetoothAccess(activity)
 void requestLocationAccess(activity)
 Observable<Beacon> observe()
+Observable<Beacon> observe(ScanStrategy scanStrategy)
 ```
 
 JavaDoc is available at: http://pwittchen.github.io/ReactiveBeacons/
