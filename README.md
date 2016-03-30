@@ -348,6 +348,7 @@ References
   - [Android SDK by Kontakt.io](https://github.com/kontaktio/Android-SDK)
   - [Android Beacon Library by AltBeacon](https://github.com/AltBeacon/android-beacon-library)
   - [Bluetooth LE Library - Android](https://github.com/alt236/Bluetooth-LE-Library---Android)
+  - [RxAndroidBle](https://github.com/Polidea/RxAndroidBle)
 - Others
   - [RxBluetooth](https://github.com/IvBaranov/RxBluetooth)
   - [LMBluetoothSDK](https://github.com/whilu/LMBluetoothSdk)
