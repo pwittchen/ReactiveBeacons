@@ -1,6 +1,16 @@
 CHANGELOG
 =========
 
+v. 0.5.1
+--------
+*31 Jul 2016*
+
+- bumped RxJava to v. 1.1.8
+- bumped Truth to v. 0.28
+- bumped compile SDK version to 23
+- updated dependencies in sample apps
+- updated documentation
+
 v. 0.5.0
 --------
 *27 Mar 2016*
