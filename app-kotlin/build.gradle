@@ -3,13 +3,13 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-  compileSdkVersion 23
-  buildToolsVersion "23.0.1"
+  compileSdkVersion 25
+  buildToolsVersion '25.0.2'
 
   defaultConfig {
     applicationId "com.github.pwittchen.reactivebeacons.kotlinapp"
     minSdkVersion 9
-    targetSdkVersion 23
+    targetSdkVersion 25
     versionCode 1
     versionName "1.0"
   }
@@ -29,7 +29,7 @@ android {
 dependencies {
   compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
   compile 'io.reactivex:rxandroid:1.2.1'
-  compile 'com.android.support:appcompat-v7:23.0.0'
+  compile 'com.android.support:appcompat-v7:25.3.0'
   compile project(':library')
 }
 
@@ -38,7 +38,7 @@ repositories {
 }
 
 buildscript {
-  ext.kotlin_version = '1.0.1-1'
+  ext.kotlin_version = '1.1.1'
 
   repositories {
     mavenCentral()
