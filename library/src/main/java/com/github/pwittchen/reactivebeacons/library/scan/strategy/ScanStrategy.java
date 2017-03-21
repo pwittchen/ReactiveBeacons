@@ -16,7 +16,8 @@
 package com.github.pwittchen.reactivebeacons.library.scan.strategy;
 
 import com.github.pwittchen.reactivebeacons.library.Beacon;
-import rx.Observable;
+
+import io.reactivex.Observable;
 
 /**
  * Interface representing BLE scan strategy

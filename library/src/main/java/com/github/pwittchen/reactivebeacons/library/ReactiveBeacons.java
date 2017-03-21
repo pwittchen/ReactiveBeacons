@@ -24,7 +24,9 @@ import android.os.Build;
 import com.github.pwittchen.reactivebeacons.library.scan.strategy.ScanStrategy;
 import com.github.pwittchen.reactivebeacons.library.scan.strategy.lollipop.LollipopScanStrategy;
 import com.github.pwittchen.reactivebeacons.library.scan.strategy.prelollipop.PreLollipopScanStrategy;
-import rx.Observable;
+
+import io.reactivex.Observable;
+
 
 /**
  * An Android library monitoring Bluetooth Low Energy (BLE) beacons with RxJava
