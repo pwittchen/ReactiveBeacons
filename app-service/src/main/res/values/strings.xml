@@ -1,5 +1,0 @@
-<resources>
-  <string name="app_name">ReactiveBeaconsService</string>
-  <string name="start_service">start service</string>
-  <string name="stop_service">stop service</string>
-</resources>

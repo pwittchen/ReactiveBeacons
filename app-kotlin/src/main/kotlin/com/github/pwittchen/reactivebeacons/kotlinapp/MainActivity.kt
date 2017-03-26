@@ -1,12 +1,18 @@
 package com.github.pwittchen.reactivebeacons.kotlinapp
 
+import android.Manifest.permission.ACCESS_COARSE_LOCATION
+import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.app.Activity
+import android.os.Build
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.PermissionChecker.PERMISSION_GRANTED
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.github.pwittchen.reactivebeacons.library.Beacon
 import com.github.pwittchen.reactivebeacons.library.ReactiveBeacons
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.annotations.NonNull
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.lv_beacons
@@ -14,68 +20,116 @@ import java.util.ArrayList
 import java.util.HashMap
 
 class MainActivity : Activity() {
-    private var subscription: Disposable? = null
-    private var beacons: MutableMap<String, Beacon> = HashMap()
+  private val IS_PRE_M_ANDROID = Build.VERSION.SDK_INT < Build.VERSION_CODES.M
+  private val PERMISSIONS_REQUEST_CODE_ACCESS_COARSE_LOCATION = 1000
+  private var reactiveBeacons: ReactiveBeacons? = null
+  private var subscription: Disposable? = null
+  private var beacons: MutableMap<String, Beacon> = HashMap()
 
-    companion object {
-        private val BEACON = "MAC: %s, RSSI: %d\ndistance: %.2fm, proximity: %s\n%s"
-        private val BLE_NOT_SUPPORTED = "BLE is not supported on this device";
+  companion object {
+    private val BEACON = "MAC: %s, RSSI: %d\ndistance: %.2fm, proximity: %s\n%s"
+    private val BLE_NOT_SUPPORTED = "BLE is not supported on this device";
+  }
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_main)
+  }
+
+  override fun onResume() {
+    super.onResume()
+    reactiveBeacons = ReactiveBeacons(this)
+
+    if (!canObserveBeacons()) {
+      return
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    startSubscription()
+  }
+
+  private fun startSubscription() {
+    if (reactiveBeacons != null) {
+      subscription = (reactiveBeacons as ReactiveBeacons).observe()
+          .subscribeOn(Schedulers.computation())
+          .observeOn(AndroidSchedulers.mainThread())
+          .subscribe { beacon -> beacons.put(beacon.device.address, beacon); refreshBeacons() }
+    }
+  }
+
+  private fun canObserveBeacons(): Boolean {
+
+    if (reactiveBeacons != null) {
+
+      if (!(reactiveBeacons as ReactiveBeacons).isBleSupported) {
+        Toast.makeText(this, BLE_NOT_SUPPORTED, Toast.LENGTH_SHORT).show()
+        return false
+      }
+
+      if (!(reactiveBeacons as ReactiveBeacons).isBluetoothEnabled) {
+        (reactiveBeacons as ReactiveBeacons).requestBluetoothAccess(this)
+        return false
+      } else if (!(reactiveBeacons as ReactiveBeacons).isLocationEnabled(this)) {
+        (reactiveBeacons as ReactiveBeacons).requestLocationAccess(this)
+        return false
+      } else if (!isFineOrCoarseLocationPermissionGranted() && !IS_PRE_M_ANDROID) {
+        requestCoarseLocationPermission()
+        return false
+      }
+
+      return true
     }
 
-    override fun onResume() {
-        super.onResume()
-        val reactiveBeacons: ReactiveBeacons = ReactiveBeacons(this)
+    return false
+  }
 
-        if (!canObserveBeacons(reactiveBeacons)) {
-            return
-        }
+  private fun refreshBeacons() {
+    val list = ArrayList<String>()
 
-        subscription = reactiveBeacons.observe()
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { beacon -> beacons.put(beacon.device.address, beacon); refreshBeacons() }
+    for (b in beacons.values) {
+      list.add(BEACON.format(b.device.address, b.rssi, b.distance, b.proximity, b.device.name))
     }
 
-    private fun canObserveBeacons(reactiveBeacons: ReactiveBeacons): Boolean {
-        if (!reactiveBeacons.isBleSupported) {
-            Toast.makeText(this, BLE_NOT_SUPPORTED, Toast.LENGTH_SHORT).show()
-            return false
-        }
+    lv_beacons.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, list)
+  }
 
-        if (!reactiveBeacons.isBluetoothEnabled) {
-            reactiveBeacons.requestBluetoothAccess(this)
-            return false
-        } else if (!reactiveBeacons.isLocationEnabled(this)) {
-            reactiveBeacons.requestLocationAccess(this)
-            return false
-        }
+  override fun onPause() {
+    super.onPause()
+    safelyUnsubscribe(subscription)
+  }
 
-        return true
+  private fun safelyUnsubscribe(subscription: Disposable?) {
+    if (subscription != null && !subscription.isDisposed) {
+      subscription.dispose()
     }
+  }
 
-    private fun refreshBeacons() {
-        val list = ArrayList<String>()
+  override fun onRequestPermissionsResult(requestCode: Int, @NonNull permissions: Array<String>,
+      @NonNull grantResults: IntArray) {
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    val isCoarseLocation = requestCode == PERMISSIONS_REQUEST_CODE_ACCESS_COARSE_LOCATION
+    val permissionGranted = grantResults[0] == PERMISSION_GRANTED
 
-        for (b in beacons.values) {
-            list.add(BEACON.format(b.device.address, b.rssi, b.distance, b.proximity, b.device.name))
-        }
-
-        lv_beacons.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, list)
+    if (isCoarseLocation && permissionGranted && subscription == null) {
+      startSubscription()
     }
+  }
 
-    override fun onPause() {
-        super.onPause()
-        safelyUnsubscribe(subscription)
+  private fun requestCoarseLocationPermission() {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+      requestPermissions(arrayOf<String>(ACCESS_COARSE_LOCATION),
+          PERMISSIONS_REQUEST_CODE_ACCESS_COARSE_LOCATION)
     }
+  }
 
-    private fun safelyUnsubscribe(subscription: Disposable?) {
-        if (subscription != null && !subscription.isDisposed) {
-            subscription.dispose()
-        }
-    }
+  private fun isFineOrCoarseLocationPermissionGranted(): Boolean {
+    val isAndroidMOrHigher = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+    val isFineLocationPermissionGranted = isGranted(ACCESS_FINE_LOCATION)
+    val isCoarseLocationPermissionGranted = isGranted(ACCESS_COARSE_LOCATION)
+
+    return isAndroidMOrHigher && (isFineLocationPermissionGranted || isCoarseLocationPermissionGranted)
+  }
+
+  private fun isGranted(permission: String): Boolean {
+    return ActivityCompat.checkSelfPermission(this, permission) == PERMISSION_GRANTED
+  }
 }
