@@ -2,38 +2,37 @@ apply plugin: 'com.android.library'
 apply from: '../config/quality.gradle'
 
 android {
-  compileSdkVersion 25
-  buildToolsVersion "25.0.2"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
 
-  defaultConfig {
-    minSdkVersion 9
-    targetSdkVersion 25
-    versionCode 1
-    versionName "1.0"
-    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-  }
-  buildTypes {
-    release {
-      minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    defaultConfig {
+        minSdkVersion 9
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-  }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
 }
 
 dependencies {
-  compile 'io.reactivex:rxjava:1.2.1'
-  androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
-  androidTestCompile('com.google.truth:truth:0.28') {
-    exclude group: 'junit' // Android has JUnit built in
-  }
+    compile 'io.reactivex.rxjava2:rxjava:2.0.7'
+    androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
+    testCompile('com.google.truth:truth:0.28') {
+        exclude group: 'junit' // Android has JUnit built in
+    }
 
-  androidTestCompile 'com.google.dexmaker:dexmaker:1.2' // required by Mockito
-  androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.2' // required by Mockito
-  androidTestCompile 'org.mockito:mockito-core:1.10.19'
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:1.10.19'
 }
 
 task wrapper(type: Wrapper) {
-  gradleVersion = '3.4.1'
+    gradleVersion = '3.4.1'
 }
 
 apply from: '../maven_push.gradle'

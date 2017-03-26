@@ -19,18 +19,23 @@ import android.annotation.TargetApi;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
 import android.os.Build;
+
 import com.github.pwittchen.reactivebeacons.library.Beacon;
 import com.github.pwittchen.reactivebeacons.library.FutureAdapter;
-import rx.Observable;
 
-@TargetApi(Build.VERSION_CODES.LOLLIPOP) public class ScanCallbackAdapter extends ScanCallback {
-  private final FutureAdapter futureAdapter = new FutureAdapter();
+import io.reactivex.Observable;
 
-  @Override public void onScanResult(int callbackType, ScanResult result) {
-    futureAdapter.setBeacon(Beacon.create(result));
-  }
 
-  public Observable<Beacon> toObservable() {
-    return Observable.from(futureAdapter);
-  }
+@TargetApi(Build.VERSION_CODES.LOLLIPOP)
+public class ScanCallbackAdapter extends ScanCallback {
+    private final FutureAdapter futureAdapter = new FutureAdapter();
+
+    @Override
+    public void onScanResult(int callbackType, ScanResult result) {
+        futureAdapter.setBeacon(Beacon.create(result));
+    }
+
+    public Observable<Beacon> toObservable() {
+        return Observable.fromFuture(futureAdapter);
+    }
 }

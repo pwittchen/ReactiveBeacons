@@ -15,7 +15,8 @@
  */
 package com.github.pwittchen.reactivebeacons.library;
 
-import rx.functions.Func1;
+
+import io.reactivex.functions.Function;
 
 /**
  * Provides static filtering methods,
@@ -24,139 +25,150 @@ import rx.functions.Func1;
  */
 public class Filter {
 
-  public static Func1<Beacon, Boolean> proximityIsEqualTo(final Proximity... proximities) {
-    return new Func1<Beacon, Boolean>() {
-      @Override public Boolean call(Beacon beacon) {
-        for (Proximity proximity : proximities) {
-          if (beacon.getProximity() == proximity) {
-            return true;
-          }
-        }
+    public static Function<Beacon, Boolean> proximityIsEqualTo(final Proximity... proximities) {
+        return new Function<Beacon, Boolean>() {
+            @Override
+            public Boolean apply(Beacon beacon) {
+                for (Proximity proximity : proximities) {
+                    if (beacon.getProximity() == proximity) {
+                        return true;
+                    }
+                }
 
-        return false;
-      }
-    };
-  }
+                return false;
+            }
+        };
+    }
 
-  public static Func1<Beacon, Boolean> proximityIsNotEqualTo(final Proximity... proximities) {
-    return new Func1<Beacon, Boolean>() {
-      @Override public Boolean call(Beacon beacon) {
-        for (Proximity proximity : proximities) {
-          if (beacon.getProximity() != proximity) {
-            return true;
-          }
-        }
+    public static Function<Beacon, Boolean> proximityIsNotEqualTo(final Proximity... proximities) {
+        return new Function<Beacon, Boolean>() {
+            @Override
+            public Boolean apply(Beacon beacon) {
+                for (Proximity proximity : proximities) {
+                    if (beacon.getProximity() != proximity) {
+                        return true;
+                    }
+                }
 
-        return false;
-      }
-    };
-  }
+                return false;
+            }
+        };
+    }
 
-  public static Func1<Beacon, Boolean> distanceIsEqualTo(final double distance) {
-    return new Func1<Beacon, Boolean>() {
-      @Override public Boolean call(Beacon beacon) {
-        return beacon.getDistance() == distance;
-      }
-    };
-  }
+    public static Function<Beacon, Boolean> distanceIsEqualTo(final double distance) {
+        return new Function<Beacon, Boolean>() {
+            @Override
+            public Boolean apply(Beacon beacon) {
+                return beacon.getDistance() == distance;
+            }
+        };
+    }
 
-  public static Func1<Beacon, Boolean> distanceIsGreaterThan(final double distance) {
-    return new Func1<Beacon, Boolean>() {
-      @Override public Boolean call(Beacon beacon) {
-        return beacon.getDistance() > distance;
-      }
-    };
-  }
+    public static Function<Beacon, Boolean> distanceIsGreaterThan(final double distance) {
+        return new Function<Beacon, Boolean>() {
+            @Override
+            public Boolean apply(Beacon beacon) {
+                return beacon.getDistance() > distance;
+            }
+        };
+    }
 
-  public static Func1<Beacon, Boolean> distanceIsLowerThan(final double distance) {
-    return new Func1<Beacon, Boolean>() {
-      @Override public Boolean call(Beacon beacon) {
-        return beacon.getDistance() < distance;
-      }
-    };
-  }
+    public static Function<Beacon, Boolean> distanceIsLowerThan(final double distance) {
+        return new Function<Beacon, Boolean>() {
+            @Override
+            public Boolean apply(Beacon beacon) {
+                return beacon.getDistance() < distance;
+            }
+        };
+    }
 
-  public static Func1<Beacon, Boolean> hasName(final String... names) {
-    return new Func1<Beacon, Boolean>() {
-      @Override public Boolean call(Beacon beacon) {
-        for (String name : names) {
-          if (beacon.device.getName().equals(name)) {
-            return true;
-          }
-        }
+    public static Function<Beacon, Boolean> hasName(final String... names) {
+        return new Function<Beacon, Boolean>() {
+            @Override
+            public Boolean apply(Beacon beacon) {
+                for (String name : names) {
+                    if (beacon.device.getName().equals(name)) {
+                        return true;
+                    }
+                }
 
-        return false;
-      }
-    };
-  }
+                return false;
+            }
+        };
+    }
 
-  public static Func1<Beacon, Boolean> exceptName(final String... names) {
-    return new Func1<Beacon, Boolean>() {
-      @Override public Boolean call(Beacon beacon) {
-        for (String name : names) {
-          if (!beacon.device.getName().equals(name)) {
-            return true;
-          }
-        }
+    public static Function<Beacon, Boolean> exceptName(final String... names) {
+        return new Function<Beacon, Boolean>() {
+            @Override
+            public Boolean apply(Beacon beacon) {
+                for (String name : names) {
+                    if (!beacon.device.getName().equals(name)) {
+                        return true;
+                    }
+                }
 
-        return false;
-      }
-    };
-  }
+                return false;
+            }
+        };
+    }
 
-  public static Func1<Beacon, Boolean> hasMacAddress(final String... macs) {
-    return new Func1<Beacon, Boolean>() {
-      @Override public Boolean call(Beacon beacon) {
-        for (String mac : macs) {
-          if (beacon.device.getAddress().equals(mac)) {
-            return true;
-          }
-        }
+    public static Function<Beacon, Boolean> hasMacAddress(final String... macs) {
+        return new Function<Beacon, Boolean>() {
+            @Override
+            public Boolean apply(Beacon beacon) {
+                for (String mac : macs) {
+                    if (beacon.device.getAddress().equals(mac)) {
+                        return true;
+                    }
+                }
 
-        return false;
-      }
-    };
-  }
+                return false;
+            }
+        };
+    }
 
-  public static Func1<Beacon, Boolean> exceptMacAddress(final String... macs) {
-    return new Func1<Beacon, Boolean>() {
-      @Override public Boolean call(Beacon beacon) {
-        for (String mac : macs) {
-          if (!beacon.device.getAddress().equals(mac)) {
-            return true;
-          }
-        }
+    public static Function<Beacon, Boolean> exceptMacAddress(final String... macs) {
+        return new Function<Beacon, Boolean>() {
+            @Override
+            public Boolean apply(Beacon beacon) {
+                for (String mac : macs) {
+                    if (!beacon.device.getAddress().equals(mac)) {
+                        return true;
+                    }
+                }
 
-        return false;
-      }
-    };
-  }
+                return false;
+            }
+        };
+    }
 
-  public static Func1<Beacon, Boolean> hasMacAddress(final MacAddress... macs) {
-    return new Func1<Beacon, Boolean>() {
-      @Override public Boolean call(Beacon beacon) {
-        for (MacAddress mac : macs) {
-          if (beacon.macAddress.equals(mac)) {
-            return true;
-          }
-        }
+    public static Function<Beacon, Boolean> hasMacAddress(final MacAddress... macs) {
+        return new Function<Beacon, Boolean>() {
+            @Override
+            public Boolean apply(Beacon beacon) {
+                for (MacAddress mac : macs) {
+                    if (beacon.macAddress.equals(mac)) {
+                        return true;
+                    }
+                }
 
-        return false;
-      }
-    };
-  }
+                return false;
+            }
+        };
+    }
 
-  public static Func1<Beacon, Boolean> exceptMacAddress(final MacAddress... macs) {
-    return new Func1<Beacon, Boolean>() {
-      @Override public Boolean call(Beacon beacon) {
-        for (MacAddress mac : macs) {
-          if (!beacon.macAddress.equals(mac)) {
-            return true;
-          }
-        }
+    public static Function<Beacon, Boolean> exceptMacAddress(final MacAddress... macs) {
+        return new Function<Beacon, Boolean>() {
+            @Override
+            public Boolean apply(Beacon beacon) {
+                for (MacAddress mac : macs) {
+                    if (!beacon.macAddress.equals(mac)) {
+                        return true;
+                    }
+                }
 
-        return false;
-      }
-    };
-  }
+                return false;
+            }
+        };
+    }
 }

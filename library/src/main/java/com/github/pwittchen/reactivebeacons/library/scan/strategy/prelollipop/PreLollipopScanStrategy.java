@@ -17,31 +17,37 @@ package com.github.pwittchen.reactivebeacons.library.scan.strategy.prelollipop;
 
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
+
 import com.github.pwittchen.reactivebeacons.library.Beacon;
 import com.github.pwittchen.reactivebeacons.library.scan.strategy.ScanStrategy;
-import rx.Observable;
-import rx.functions.Action0;
+
+import io.reactivex.Observable;
+import io.reactivex.functions.Action;
+
 
 public class PreLollipopScanStrategy implements ScanStrategy {
-  private final BluetoothAdapter bluetoothAdapter;
-  private final LeScanCallbackAdapter leScanCallbackAdapter;
+    private final BluetoothAdapter bluetoothAdapter;
+    private final LeScanCallbackAdapter leScanCallbackAdapter;
 
-  public PreLollipopScanStrategy(final BluetoothAdapter bluetoothAdapter) {
-    this.bluetoothAdapter = bluetoothAdapter;
-    this.leScanCallbackAdapter = new LeScanCallbackAdapter();
-  }
+    public PreLollipopScanStrategy(final BluetoothAdapter bluetoothAdapter) {
+        this.bluetoothAdapter = bluetoothAdapter;
+        this.leScanCallbackAdapter = new LeScanCallbackAdapter();
+    }
 
-  @Override @SuppressWarnings("deprecation") @SuppressLint("NewApi")
-  public Observable<Beacon> observe() {
-    bluetoothAdapter.startLeScan(leScanCallbackAdapter);
+    @Override
+    @SuppressWarnings("deprecation")
+    @SuppressLint("NewApi")
+    public Observable<Beacon> observe() {
+        bluetoothAdapter.startLeScan(leScanCallbackAdapter);
 
-    return leScanCallbackAdapter.toObservable()
-        .repeat()
-        .distinctUntilChanged()
-        .doOnUnsubscribe(new Action0() {
-          @Override public void call() {
-            bluetoothAdapter.stopLeScan(leScanCallbackAdapter);
-          }
-        });
-  }
+        return leScanCallbackAdapter.toObservable()
+                .repeat()
+                .distinctUntilChanged()
+                .doOnTerminate(new Action() {
+                    @Override
+                    public void run() {
+                        bluetoothAdapter.stopLeScan(leScanCallbackAdapter);
+                    }
+                });
+    }
 }
