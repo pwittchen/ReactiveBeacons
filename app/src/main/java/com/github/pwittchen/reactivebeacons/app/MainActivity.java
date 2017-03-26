@@ -16,7 +16,10 @@
 package com.github.pwittchen.reactivebeacons.app;
 
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -33,7 +36,13 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.support.v4.content.PermissionChecker.PERMISSION_GRANTED;
+
 public class MainActivity extends Activity {
+  private static final boolean IS_PRE_M_ANDROID = Build.VERSION.SDK_INT < Build.VERSION_CODES.M;
+  private static final int PERMISSIONS_REQUEST_CODE_ACCESS_COARSE_LOCATION = 1000;
   private static final String ITEM_FORMAT = "MAC: %s, RSSI: %d\ndistance: %.2fm, proximity: %s\n%s";
   private ReactiveBeacons reactiveBeacons;
   private Subscription subscription;
@@ -55,6 +64,10 @@ public class MainActivity extends Activity {
       return;
     }
 
+    startSubscription();
+  }
+
+  private void startSubscription() {
     subscription = reactiveBeacons.observe()
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
@@ -77,6 +90,9 @@ public class MainActivity extends Activity {
       return false;
     } else if (!reactiveBeacons.isLocationEnabled(this)) {
       reactiveBeacons.requestLocationAccess(this);
+      return false;
+    } else if (!isFineOrCoarseLocationPermissionGranted() && !IS_PRE_M_ANDROID) {
+      requestCoarseLocationPermission();
       return false;
     }
 
@@ -108,5 +124,36 @@ public class MainActivity extends Activity {
     if (subscription != null && !subscription.isUnsubscribed()) {
       subscription.unsubscribe();
     }
+  }
+
+  @Override public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+      @NonNull int[] grantResults) {
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    final boolean isCoarseLocation = requestCode == PERMISSIONS_REQUEST_CODE_ACCESS_COARSE_LOCATION;
+    final boolean permissionGranted = grantResults[0] == PERMISSION_GRANTED;
+
+    if (isCoarseLocation && permissionGranted && subscription == null) {
+      startSubscription();
+    }
+  }
+
+  private void requestCoarseLocationPermission() {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+      requestPermissions(new String[] { ACCESS_COARSE_LOCATION },
+          PERMISSIONS_REQUEST_CODE_ACCESS_COARSE_LOCATION);
+    }
+  }
+
+  private boolean isFineOrCoarseLocationPermissionGranted() {
+    boolean isAndroidMOrHigher = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
+    boolean isFineLocationPermissionGranted = isGranted(ACCESS_FINE_LOCATION);
+    boolean isCoarseLocationPermissionGranted = isGranted(ACCESS_COARSE_LOCATION);
+
+    return isAndroidMOrHigher && (isFineLocationPermissionGranted
+        || isCoarseLocationPermissionGranted);
+  }
+
+  private boolean isGranted(String permission) {
+    return ActivityCompat.checkSelfPermission(this, permission) == PERMISSION_GRANTED;
   }
 }

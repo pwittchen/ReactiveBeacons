@@ -18,14 +18,13 @@ package com.github.pwittchen.reactivebeacons.library;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.provider.Settings;
 
 class AccessRequester {
-  private static final String EMPTY_STRING = "";
   private final BluetoothAdapter bluetoothAdapter;
 
   public AccessRequester(BluetoothAdapter bluetoothAdapter) {
@@ -36,11 +35,11 @@ class AccessRequester {
     return bluetoothAdapter != null && bluetoothAdapter.isEnabled();
   }
 
-  @SuppressWarnings("deprecation") public boolean isLocationEnabled(Context context) {
-    String name = Settings.Secure.LOCATION_PROVIDERS_ALLOWED;
-    ContentResolver contentResolver = context.getContentResolver();
-    String providers = Settings.Secure.getString(contentResolver, name);
-    return providers != null && !providers.equals(EMPTY_STRING);
+  public boolean isLocationEnabled(Context context) {
+    LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+    boolean isGpsProviderEnabled = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+    boolean isNetworkProviderEnabled = manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+    return isGpsProviderEnabled || isNetworkProviderEnabled;
   }
 
   public void requestBluetoothAccess(Activity activity) {
