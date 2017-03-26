@@ -8,6 +8,10 @@ Android library scanning BLE (Bluetooth Low Energy) beacons nearby with RxJava
 
 Library was tested with Estimote and Kontakt beacons.
 
+ReactiveBeacons library is compatible with RxJava & RxAndroid 1.x.
+
+There's also library branch called [RxJava2.x](https://github.com/pwittchen/ReactiveBeacons/tree/RxJava2.x), which contains library version compatible with RxJava & RxAndroid 2.x.
+
 This library has limited functionality, but its API is simple:
 
 ```java
