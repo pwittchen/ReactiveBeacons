@@ -38,6 +38,7 @@ Contents
   - [Checking BLE support](#checking-ble-support)
   - [Requesting Bluetooth access](#requesting-bluetooth-access)
   - [Requesting Location access](#requesting-location-access)
+  - [Requesting Runtime Permissions](#requesting-runtime-permissions)
   - [Exemplary code snippet](#exemplary-code-snippet)
 - [Examples](#examples)
 - [Compatibility with different Android versions](#compatibility-with-different-android-versions)
@@ -159,6 +160,12 @@ if (!reactiveBeacons.isLocationEnabled(activity)) {
 }
 ```
 
+### Requesting Runtime Permissions
+
+Since Android M (API 23), we need to request Runtime Permissions.
+If we want to scan for BLE beacons, we need to request for `ACCESS_COARSE_LOCATION` or `ACCESS_FINE_LOCATION` permission.
+For more details, check sample `app`.
+
 ### Exemplary code snippet
 
 With API methods, we can create the following code snippet:
@@ -176,7 +183,11 @@ private boolean canObserveBeacons() {
   } else if (!reactiveBeacons.isLocationEnabled(this)) {
     reactiveBeacons.requestLocationAccess(this);
     return false;
-  }
+  } else if (!isFineOrCoarseLocationPermissionGranted()
+             && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+    requestCoarseLocationPermission();
+    return false;
+   }
 
   return true;
 }
