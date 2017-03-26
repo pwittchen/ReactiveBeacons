@@ -32,4 +32,5 @@ dependencies {
   }
 
   androidTestCompile deps.mockitocore
+  androidTestCompile deps.mockitoandroid
 }

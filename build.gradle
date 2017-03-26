@@ -16,6 +16,7 @@ ext.deps = [rxjava            : 'io.reactivex:rxjava:1.2.7',
             truth             : 'com.google.truth:truth:0.32',
             testingsupport    : 'com.android.support.test:testing-support-lib:0.1',
             mockitocore       : 'org.mockito:mockito-core:2.7.17',
+            mockitoandroid    : 'org.mockito:mockito-android:2.7.19',
             kotlinstdlib      : "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion",
             kotlingradleplugin: "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"]
 
