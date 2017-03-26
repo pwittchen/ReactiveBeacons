@@ -109,7 +109,7 @@ public class ReactiveBeacons {
       scanStrategy = new PreLollipopScanStrategy(bluetoothAdapter);
     }
 
-    return scanStrategy.observe();
+    return observe(scanStrategy);
   }
 
   /**
