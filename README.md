@@ -34,6 +34,7 @@ Contents
   - [Checking BLE support](#checking-ble-support)
   - [Requesting Bluetooth access](#requesting-bluetooth-access)
   - [Requesting Location access](#requesting-location-access)
+  - [Requesting Runtime Permissions](#requesting-runtime-permissions)
   - [Exemplary code snippet](#exemplary-code-snippet)
 - [Examples](#examples)
 - [Compatibility with different Android versions](#compatibility-with-different-android-versions)
@@ -66,7 +67,7 @@ private ReactiveBeacons reactiveBeacons;
 Create subscribtion:
 
 ```java
-private Subscription subscription;
+private Disposable subscription;
 
 @Override protected void onResume() {
   super.onResume();
@@ -84,7 +85,7 @@ private Subscription subscription;
   subscription = reactiveBeacons.observe()
     .subscribeOn(Schedulers.computation())
     .observeOn(AndroidSchedulers.mainThread())
-    .subscribe(new Action1<Beacon>() {
+    .subscribe(new Consumer<Beacon>() {
       @Override public void call(Beacon beacon) {
         // do something with beacon
       }
@@ -99,8 +100,8 @@ Unsubscribe subscription in `onPause()` method to stop BLE scan.
 ```java
 @Override protected void onPause() {
   super.onPause();
-  if (subscription != null && !subscription.isUnsubscribed()) {
-    subscription.unsubscribe();
+  if (subscription != null && !subscription.isDisposed()) {
+    subscription.dispose()
   }
 }
 ```
@@ -155,6 +156,12 @@ if (!reactiveBeacons.isLocationEnabled(activity)) {
 }
 ```
 
+### Requesting Runtime Permissions
+
+Since Android M (API 23), we need to request Runtime Permissions.
+If we want to scan for BLE beacons, we need to request for `ACCESS_COARSE_LOCATION` or `ACCESS_FINE_LOCATION` permission.
+For more details, check sample `app`.
+
 ### Exemplary code snippet
 
 With API methods, we can create the following code snippet:
@@ -172,7 +179,11 @@ private boolean canObserveBeacons() {
   } else if (!reactiveBeacons.isLocationEnabled(this)) {
     reactiveBeacons.requestLocationAccess(this);
     return false;
-  }
+  } else if (!isFineOrCoarseLocationPermissionGranted()
+             && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+    requestCoarseLocationPermission();
+    return false;
+   }
 
   return true;
 }
@@ -268,7 +279,7 @@ In the example below, we are filtering all Beacons with `Proximity` equal to `NE
 ```java
 reactiveBeacons.observe()
     .filter(Filter.proximityIsEqualTo(Proximity.NEAR))
-    .subscribe(new Action1<Beacon>() {
+    .subscribe(new Consumer<Beacon>() {
       @Override public void call(Beacon beacon) {
         beacons.put(beacon.device.getAddress(), beacon);
         refreshBeaconList();
