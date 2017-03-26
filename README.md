@@ -4,16 +4,12 @@
 ![Maven Central](https://img.shields.io/maven-central/v/com.github.pwittchen/reactivebeacons.svg?style=flat)
 
 **Builds**
-- Build status for `RxJava1.x` branch: [![Build Status for RxJava1.x](https://travis-ci.org/pwittchen/ReactiveBeacons.svg?branch=RxJava1.x)](https://travis-ci.org/pwittchen/ReactiveBeacons)
-- Build status for `RxJava2.x` branch: [![Build Status for RxJava2.x](https://travis-ci.org/pwittchen/ReactiveBeacons.svg?branch=RxJava2.x)](https://travis-ci.org/pwittchen/ReactiveBeacons)
+- Build status for [`RxJava1.x`](https://github.com/pwittchen/ReactiveBeacons/tree/RxJava1.x) branch: [![Build Status for RxJava1.x](https://travis-ci.org/pwittchen/ReactiveBeacons.svg?branch=RxJava1.x)](https://travis-ci.org/pwittchen/ReactiveBeacons)
+- Build status for [`RxJava2.x`](https://github.com/pwittchen/ReactiveBeacons/tree/RxJava2.x) branch: [![Build Status for RxJava2.x](https://travis-ci.org/pwittchen/ReactiveBeacons.svg?branch=RxJava2.x)](https://travis-ci.org/pwittchen/ReactiveBeacons)
 
 Android library scanning BLE (Bluetooth Low Energy) beacons nearby with RxJava
 
 Library was tested with Estimote and Kontakt beacons.
-
-ReactiveBeacons library is compatible with RxJava & RxAndroid 1.x.
-
-There's also library branch called [RxJava2.x](https://github.com/pwittchen/ReactiveBeacons/tree/RxJava2.x), which contains library version compatible with RxJava & RxAndroid 2.x.
 
 This library has limited functionality, but its API is simple:
 
