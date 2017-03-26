@@ -44,7 +44,7 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.support.v4.content.PermissionChecker.PERMISSION_GRANTED;
 
 public class MainActivity extends Activity {
-  private static final boolean IS_PRE_M_ANDROID = Build.VERSION.SDK_INT < Build.VERSION_CODES.M;
+  private static final boolean IS_AT_LEAST_ANDROID_M = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
   private static final int PERMISSIONS_REQUEST_CODE_ACCESS_COARSE_LOCATION = 1000;
   private static final String ITEM_FORMAT = "MAC: %s, RSSI: %d\ndistance: %.2fm, proximity: %s\n%s";
   private ReactiveBeacons reactiveBeacons;
@@ -94,7 +94,7 @@ public class MainActivity extends Activity {
     } else if (!reactiveBeacons.isLocationEnabled(this)) {
       reactiveBeacons.requestLocationAccess(this);
       return false;
-    } else if (!isFineOrCoarseLocationPermissionGranted() && !IS_PRE_M_ANDROID) {
+    } else if (!isFineOrCoarseLocationPermissionGranted() && IS_AT_LEAST_ANDROID_M) {
       requestCoarseLocationPermission();
       return false;
     }

@@ -20,7 +20,7 @@ import java.util.ArrayList
 import java.util.HashMap
 
 class MainActivity : Activity() {
-  private val IS_PRE_M_ANDROID = Build.VERSION.SDK_INT < Build.VERSION_CODES.M
+  private val IS_AT_LEAST_ANDROID_M = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
   private val PERMISSIONS_REQUEST_CODE_ACCESS_COARSE_LOCATION = 1000
   private var reactiveBeacons: ReactiveBeacons? = null
   private var subscription: Disposable? = null
@@ -71,7 +71,7 @@ class MainActivity : Activity() {
       } else if (!(reactiveBeacons as ReactiveBeacons).isLocationEnabled(this)) {
         (reactiveBeacons as ReactiveBeacons).requestLocationAccess(this)
         return false
-      } else if (!isFineOrCoarseLocationPermissionGranted() && !IS_PRE_M_ANDROID) {
+      } else if (!isFineOrCoarseLocationPermissionGranted() && IS_AT_LEAST_ANDROID_M) {
         requestCoarseLocationPermission()
         return false
       }
