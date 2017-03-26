@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-  compileSdkVersion 25
-  buildToolsVersion "25.0.2"
+  compileSdkVersion rootProject.ext.compileSdkVersion
+  buildToolsVersion rootProject.ext.buildToolsVersion
 
   defaultConfig {
+    minSdkVersion rootProject.ext.minSdkVersion
+    targetSdkVersion rootProject.ext.compileSdkVersion
     applicationId "com.github.pwittchen.reactivebeacons"
-    minSdkVersion 9
-    targetSdkVersion 25
     versionCode 1
     versionName "1.0"
   }
@@ -18,7 +18,7 @@ android {
 }
 
 dependencies {
-  compile 'com.android.support:appcompat-v7:25.3.0'
-  compile 'io.reactivex:rxandroid:1.2.1'
+  compile deps.appcompatv7
+  compile deps.rxandroid
   compile project(':library')
 }

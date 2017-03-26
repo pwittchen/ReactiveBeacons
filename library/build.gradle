@@ -1,13 +1,14 @@
 apply plugin: 'com.android.library'
 apply from: '../config/quality.gradle'
+apply from: '../maven_push.gradle'
 
 android {
-  compileSdkVersion 25
-  buildToolsVersion "25.0.2"
+  compileSdkVersion rootProject.ext.compileSdkVersion
+  buildToolsVersion rootProject.ext.buildToolsVersion
 
   defaultConfig {
-    minSdkVersion 9
-    targetSdkVersion 25
+    minSdkVersion rootProject.ext.minSdkVersion
+    targetSdkVersion rootProject.ext.compileSdkVersion
     versionCode 1
     versionName "1.0"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -21,19 +22,14 @@ android {
 }
 
 dependencies {
-  compile 'io.reactivex:rxjava:1.2.1'
-  androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
-  androidTestCompile('com.google.truth:truth:0.28') {
+  compile deps.rxjava
+  compile deps.supportannotations
+
+
+  androidTestCompile deps.testingsupport
+  androidTestCompile(deps.truth) {
     exclude group: 'junit' // Android has JUnit built in
   }
 
-  androidTestCompile 'com.google.dexmaker:dexmaker:1.2' // required by Mockito
-  androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.2' // required by Mockito
-  androidTestCompile 'org.mockito:mockito-core:1.10.19'
+  androidTestCompile deps.mockitocore
 }
-
-task wrapper(type: Wrapper) {
-  gradleVersion = '3.4.1'
-}
-
-apply from: '../maven_push.gradle'
