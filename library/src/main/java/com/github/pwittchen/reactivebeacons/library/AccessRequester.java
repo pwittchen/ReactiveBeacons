@@ -18,7 +18,6 @@ package com.github.pwittchen.reactivebeacons.library;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -26,7 +25,6 @@ import android.location.LocationManager;
 import android.provider.Settings;
 
 class AccessRequester {
-  private static final String EMPTY_STRING = "";
   private final BluetoothAdapter bluetoothAdapter;
 
   public AccessRequester(BluetoothAdapter bluetoothAdapter) {
