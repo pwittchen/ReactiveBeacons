@@ -195,8 +195,6 @@ Exemplary application is located in `app` directory of this repository.
 
 If you want to know, how to use this library with Kotlin, check `app-kotlin` sample.
 
-If you would like to know, how to use library inside Android Service, check `app-service` sample.
-
 Compatibility with different Android versions
 ---------------------------------------------
 
