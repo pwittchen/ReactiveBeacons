@@ -7,6 +7,8 @@
 - Build status for [`RxJava1.x`](https://github.com/pwittchen/ReactiveBeacons/tree/RxJava1.x) branch: [![Build Status for RxJava1.x](https://travis-ci.org/pwittchen/ReactiveBeacons.svg?branch=RxJava1.x)](https://travis-ci.org/pwittchen/ReactiveBeacons)
 - Build status for [`RxJava2.x`](https://github.com/pwittchen/ReactiveBeacons/tree/RxJava2.x) branch: [![Build Status for RxJava2.x](https://travis-ci.org/pwittchen/ReactiveBeacons.svg?branch=RxJava2.x)](https://travis-ci.org/pwittchen/ReactiveBeacons)
 
+This is **RxJava1.x** branch
+
 Android library scanning BLE (Bluetooth Low Energy) beacons nearby with RxJava
 
 Library was tested with Estimote and Kontakt beacons.
