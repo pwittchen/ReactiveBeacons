@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.pwittchen.reactivebeacons.library;
+package com.github.pwittchen.reactivebeacons.library.rx2;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -23,6 +23,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.provider.Settings;
+import com.github.pwittchen.reactivebeacons.library.R;
 
 class AccessRequester {
   private final BluetoothAdapter bluetoothAdapter;

@@ -9,8 +9,8 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.content.PermissionChecker.PERMISSION_GRANTED
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import com.github.pwittchen.reactivebeacons.library.Beacon
-import com.github.pwittchen.reactivebeacons.library.ReactiveBeacons
+import com.github.pwittchen.reactivebeacons.library.rx2.Beacon
+import com.github.pwittchen.reactivebeacons.library.rx2.ReactiveBeacons
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.annotations.NonNull
 import io.reactivex.disposables.Disposable

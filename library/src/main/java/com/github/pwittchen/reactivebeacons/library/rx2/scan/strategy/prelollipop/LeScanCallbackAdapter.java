@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.pwittchen.reactivebeacons.library.scan.strategy.prelollipop;
+package com.github.pwittchen.reactivebeacons.library.rx2.scan.strategy.prelollipop;
 
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter.LeScanCallback;
 import android.bluetooth.BluetoothDevice;
 
-import com.github.pwittchen.reactivebeacons.library.Beacon;
-import com.github.pwittchen.reactivebeacons.library.FutureAdapter;
+import com.github.pwittchen.reactivebeacons.library.rx2.Beacon;
+import com.github.pwittchen.reactivebeacons.library.rx2.FutureAdapter;
 
 import io.reactivex.Observable;
 
