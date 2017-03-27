@@ -15,9 +15,10 @@
  */
 package com.github.pwittchen.reactivebeacons.library;
 
-import android.support.test.runner.AndroidJUnit4;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
@@ -26,7 +27,7 @@ import rx.functions.Func1;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
 
-@RunWith(AndroidJUnit4.class) public class FilterTest {
+@RunWith(JUnit4.class) public class FilterTest {
 
   @Test public void proximityShouldBeEqualToImmediate() {
     // given
