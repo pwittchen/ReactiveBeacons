@@ -15,21 +15,14 @@
  */
 package com.github.pwittchen.reactivebeacons.library.rx2;
 
-
-import com.github.pwittchen.reactivebeacons.library.rx2.Beacon;
-import com.github.pwittchen.reactivebeacons.library.rx2.Filter;
-import com.github.pwittchen.reactivebeacons.library.rx2.MacAddress;
-import com.github.pwittchen.reactivebeacons.library.rx2.Proximity;
+import io.reactivex.functions.Function;
 import junit.framework.Assert;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
-
-import io.reactivex.functions.Function;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.when;
@@ -183,7 +176,7 @@ public class FilterTest {
         String address = "invalid mac address";
 
         // when
-        MacAddress macAddress = new MacAddress(address);
+        new MacAddress(address);
 
         // then throw IllegalArgumentException
     }
