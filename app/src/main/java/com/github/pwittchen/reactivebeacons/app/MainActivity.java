@@ -24,9 +24,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.github.pwittchen.reactivebeacons.R;
-import com.github.pwittchen.reactivebeacons.library.Beacon;
-import com.github.pwittchen.reactivebeacons.library.Proximity;
-import com.github.pwittchen.reactivebeacons.library.ReactiveBeacons;
+import com.github.pwittchen.reactivebeacons.library.rx2.Beacon;
+import com.github.pwittchen.reactivebeacons.library.rx2.Proximity;
+import com.github.pwittchen.reactivebeacons.library.rx2.ReactiveBeacons;
 
 import java.util.ArrayList;
 import java.util.HashMap;

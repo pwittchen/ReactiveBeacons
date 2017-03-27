@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.pwittchen.reactivebeacons.library.scan.strategy;
+package com.github.pwittchen.reactivebeacons.library.rx2.scan.strategy;
 
-import com.github.pwittchen.reactivebeacons.library.Beacon;
+import com.github.pwittchen.reactivebeacons.library.rx2.Beacon;
 
 import io.reactivex.Observable;
 

@@ -13,9 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.pwittchen.reactivebeacons.library;
+package com.github.pwittchen.reactivebeacons.library.rx2;
 
 
+import com.github.pwittchen.reactivebeacons.library.rx2.Beacon;
+import com.github.pwittchen.reactivebeacons.library.rx2.Filter;
+import com.github.pwittchen.reactivebeacons.library.rx2.MacAddress;
+import com.github.pwittchen.reactivebeacons.library.rx2.Proximity;
 import junit.framework.Assert;
 
 import org.junit.Test;

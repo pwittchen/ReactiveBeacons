@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.pwittchen.reactivebeacons.library;
+package com.github.pwittchen.reactivebeacons.library.rx2;
 
 public enum Proximity {
   IMMEDIATE("IMMEDIATE", 0, 1),

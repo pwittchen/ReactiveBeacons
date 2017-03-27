@@ -13,41 +13,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.pwittchen.reactivebeacons.library.scan.strategy.lollipop;
+package com.github.pwittchen.reactivebeacons.library.rx2.scan.strategy.prelollipop;
 
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.le.BluetoothLeScanner;
 
-import com.github.pwittchen.reactivebeacons.library.Beacon;
-import com.github.pwittchen.reactivebeacons.library.scan.strategy.ScanStrategy;
+import com.github.pwittchen.reactivebeacons.library.rx2.Beacon;
+import com.github.pwittchen.reactivebeacons.library.rx2.scan.strategy.ScanStrategy;
 
 import io.reactivex.Observable;
 import io.reactivex.functions.Action;
 
 
-public class LollipopScanStrategy implements ScanStrategy {
-    private final BluetoothLeScanner bluetoothLeScanner;
-    private final ScanCallbackAdapter scanCallbackAdapter;
+public class PreLollipopScanStrategy implements ScanStrategy {
+    private final BluetoothAdapter bluetoothAdapter;
+    private final LeScanCallbackAdapter leScanCallbackAdapter;
 
-    @SuppressLint("NewApi")
-    public LollipopScanStrategy(final BluetoothAdapter bluetoothAdapter) {
-        this.bluetoothLeScanner = bluetoothAdapter.getBluetoothLeScanner();
-        this.scanCallbackAdapter = new ScanCallbackAdapter();
+    public PreLollipopScanStrategy(final BluetoothAdapter bluetoothAdapter) {
+        this.bluetoothAdapter = bluetoothAdapter;
+        this.leScanCallbackAdapter = new LeScanCallbackAdapter();
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     @SuppressLint("NewApi")
     public Observable<Beacon> observe() {
-        bluetoothLeScanner.startScan(scanCallbackAdapter);
+        bluetoothAdapter.startLeScan(leScanCallbackAdapter);
 
-        return scanCallbackAdapter.toObservable()
+        return leScanCallbackAdapter.toObservable()
                 .repeat()
                 .distinctUntilChanged()
                 .doOnTerminate(new Action() {
                     @Override
                     public void run() {
-                        bluetoothLeScanner.stopScan(scanCallbackAdapter);
+                        bluetoothAdapter.stopLeScan(leScanCallbackAdapter);
                     }
                 });
     }
