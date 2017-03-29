@@ -15,7 +15,9 @@
  */
 package com.github.pwittchen.reactivebeacons.app;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -41,7 +43,8 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.support.v4.content.PermissionChecker.PERMISSION_GRANTED;
 
 public class MainActivity extends Activity {
-  private static final boolean IS_AT_LEAST_ANDROID_M = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
+  private static final boolean IS_AT_LEAST_ANDROID_M =
+      Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
   private static final int PERMISSIONS_REQUEST_CODE_ACCESS_COARSE_LOCATION = 1000;
   private static final String ITEM_FORMAT = "MAC: %s, RSSI: %d\ndistance: %.2fm, proximity: %s\n%s";
   private ReactiveBeacons reactiveBeacons;
@@ -68,6 +71,14 @@ public class MainActivity extends Activity {
   }
 
   private void startSubscription() {
+    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+        != PackageManager.PERMISSION_GRANTED
+        && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+        != PackageManager.PERMISSION_GRANTED) {
+      requestCoarseLocationPermission();
+      return;
+    }
+
     subscription = reactiveBeacons.observe()
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
