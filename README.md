@@ -5,8 +5,8 @@
 
 | Current Branch | Branch        | Build Status  |
 |:--------------:|:-------------:|:-------------:|
-| :white_check_mark: | [`RxJava1.x`](https://github.com/pwittchen/ReactiveBeacons/tree/RxJava1.x) | [![Build Status for RxJava1.x](https://travis-ci.org/pwittchen/ReactiveBeacons.svg?branch=RxJava1.x)](https://travis-ci.org/pwittchen/ReactiveBeacons) |
-| :ballot_box_with_check: | [`RxJava2.x`](https://github.com/pwittchen/ReactiveBeacons/tree/RxJava2.x) | [![Build Status for RxJava2.x](https://travis-ci.org/pwittchen/ReactiveBeacons.svg?branch=RxJava2.x)](https://travis-ci.org/pwittchen/ReactiveBeacons) |
+| | [`RxJava1.x`](https://github.com/pwittchen/ReactiveBeacons/tree/RxJava1.x) | [![Build Status for RxJava1.x](https://travis-ci.org/pwittchen/ReactiveBeacons.svg?branch=RxJava1.x)](https://travis-ci.org/pwittchen/ReactiveBeacons) |
+| :heavy_check_mark: | [`RxJava2.x`](https://github.com/pwittchen/ReactiveBeacons/tree/RxJava2.x) | [![Build Status for RxJava2.x](https://travis-ci.org/pwittchen/ReactiveBeacons.svg?branch=RxJava2.x)](https://travis-ci.org/pwittchen/ReactiveBeacons) |
 
 This is **RxJava2.x** branch. To see documentation for RxJava1.x, switch to [RxJava1.x](https://github.com/pwittchen/ReactiveBeacons/tree/RxJava1.x) branch.
 
