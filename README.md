@@ -28,7 +28,7 @@ Observable<Beacon> observe()
 Observable<Beacon> observe(ScanStrategy scanStrategy)
 ```
 
-JavaDoc is available at: http://pwittchen.github.io/ReactiveBeacons/
+JavaDoc is available at: http://pwittchen.github.io/ReactiveBeacons/RxJava2.x
 
 min SDK = 9, but if you are using API level lower than 18, don't forget to [check BLE support](#checking-ble-support) on the device.
 
