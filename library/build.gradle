@@ -22,6 +22,7 @@ android {
 
 dependencies {
     compile deps.rxjava2
+    compile deps.supportannotations
 
     testCompile deps.junit
     testCompile deps.truth

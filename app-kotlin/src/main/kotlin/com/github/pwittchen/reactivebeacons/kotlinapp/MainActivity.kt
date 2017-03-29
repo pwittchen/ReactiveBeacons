@@ -16,7 +16,6 @@ import io.reactivex.annotations.NonNull
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.lv_beacons
-import java.util.ArrayList
 import java.util.HashMap
 
 class MainActivity : Activity() {
@@ -83,10 +82,8 @@ class MainActivity : Activity() {
   }
 
   private fun refreshBeacons() {
-    val list = ArrayList<String>()
-
-    for (b in beacons.values) {
-      list.add(BEACON.format(b.device.address, b.rssi, b.distance, b.proximity, b.device.name))
+    val list = beacons.values.map {
+      BEACON.format(it.device.address, it.rssi, it.distance, it.proximity, it.device.name)
     }
 
     lv_beacons.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, list)

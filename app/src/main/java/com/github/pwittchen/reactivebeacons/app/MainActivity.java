@@ -15,36 +15,36 @@
  */
 package com.github.pwittchen.reactivebeacons.app;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import com.github.pwittchen.reactivebeacons.R;
 import com.github.pwittchen.reactivebeacons.library.rx2.Beacon;
 import com.github.pwittchen.reactivebeacons.library.rx2.Proximity;
 import com.github.pwittchen.reactivebeacons.library.rx2.ReactiveBeacons;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.support.v4.content.PermissionChecker.PERMISSION_GRANTED;
 
 public class MainActivity extends Activity {
-  private static final boolean IS_AT_LEAST_ANDROID_M = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
+  private static final boolean IS_AT_LEAST_ANDROID_M =
+      Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
   private static final int PERMISSIONS_REQUEST_CODE_ACCESS_COARSE_LOCATION = 1000;
   private static final String ITEM_FORMAT = "MAC: %s, RSSI: %d\ndistance: %.2fm, proximity: %s\n%s";
   private ReactiveBeacons reactiveBeacons;
@@ -71,6 +71,14 @@ public class MainActivity extends Activity {
   }
 
   private void startSubscription() {
+    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+        != PackageManager.PERMISSION_GRANTED
+        && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+        != PackageManager.PERMISSION_GRANTED) {
+      requestCoarseLocationPermission();
+      return;
+    }
+
     subscription = reactiveBeacons.observe()
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
@@ -129,8 +137,9 @@ public class MainActivity extends Activity {
     }
   }
 
-  @Override public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-      @NonNull int[] grantResults) {
+  @Override public void onRequestPermissionsResult(int requestCode,
+      @android.support.annotation.NonNull String[] permissions,
+      @android.support.annotation.NonNull int[] grantResults) {
     super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     final boolean isCoarseLocation = requestCode == PERMISSIONS_REQUEST_CODE_ACCESS_COARSE_LOCATION;
     final boolean permissionGranted = grantResults[0] == PERMISSION_GRANTED;
