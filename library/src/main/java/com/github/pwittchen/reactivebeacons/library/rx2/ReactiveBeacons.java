@@ -15,7 +15,6 @@
  */
 package com.github.pwittchen.reactivebeacons.library.rx2;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
@@ -26,7 +25,6 @@ import android.support.annotation.RequiresPermission;
 import com.github.pwittchen.reactivebeacons.library.rx2.scan.strategy.ScanStrategy;
 import com.github.pwittchen.reactivebeacons.library.rx2.scan.strategy.lollipop.LollipopScanStrategy;
 import com.github.pwittchen.reactivebeacons.library.rx2.scan.strategy.prelollipop.PreLollipopScanStrategy;
-
 import io.reactivex.Observable;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
@@ -106,7 +104,7 @@ public class ReactiveBeacons {
    */
   @RequiresPermission(anyOf = {
       ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION
-  }) public Observable<Beacon> observe() throws SecurityException {
+  }) public Observable<Beacon> observe() {
     if (!isBleSupported()) {
       return Observable.empty();
     }
@@ -117,7 +115,11 @@ public class ReactiveBeacons {
       scanStrategy = new PreLollipopScanStrategy(bluetoothAdapter);
     }
 
-    return observe(scanStrategy);
+    try {
+      return observe(scanStrategy);
+    } catch (SecurityException e) {
+      return Observable.empty();
+    }
   }
 
   /**
