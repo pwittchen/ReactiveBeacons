@@ -317,10 +317,10 @@ dependencies {
 Tests
 -----
 
-Tests are available in `library/src/androidTest/java/` directory and can be executed on emulator or Android device from Android Studio or CLI with the following command:
+Tests are available in `library/src/test/java/` directory and can be executed without emulator or Android device from CLI with the following command:
 
 ```
-./gradlew connectedCheck
+./gradlew test
 ```
 
 Code style
