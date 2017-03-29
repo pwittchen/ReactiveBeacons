@@ -152,7 +152,7 @@ import static org.mockito.Mockito.when;
     String address = "invalid mac address";
 
     // when
-    MacAddress macAddress = new MacAddress(address);
+    new MacAddress(address);
 
     // then throw IllegalArgumentException
   }
