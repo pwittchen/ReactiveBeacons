@@ -3,10 +3,10 @@
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-ReactiveBeacons-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/2576)
 ![Maven Central](https://img.shields.io/maven-central/v/com.github.pwittchen/reactivebeacons.svg?style=flat)
 
-| Branch        | Build Status  |
-| ------------- |:-------------:|
-| [`RxJava1.x`](https://github.com/pwittchen/ReactiveBeacons/tree/RxJava1.x) | [![Build Status for RxJava1.x](https://travis-ci.org/pwittchen/ReactiveBeacons.svg?branch=RxJava1.x)](https://travis-ci.org/pwittchen/ReactiveBeacons) |
-| [`RxJava2.x`](https://github.com/pwittchen/ReactiveBeacons/tree/RxJava2.x) | [![Build Status for RxJava2.x](https://travis-ci.org/pwittchen/ReactiveBeacons.svg?branch=RxJava2.x)](https://travis-ci.org/pwittchen/ReactiveBeacons) |
+| Current Branch | Branch        | Build Status  |
+|:--------------:|:-------------:|:-------------:|
+| :heavy_check_mark: | [`RxJava1.x`](https://github.com/pwittchen/ReactiveBeacons/tree/RxJava1.x) | [![Build Status for RxJava1.x](https://travis-ci.org/pwittchen/ReactiveBeacons.svg?branch=RxJava1.x)](https://travis-ci.org/pwittchen/ReactiveBeacons) |
+| | [`RxJava2.x`](https://github.com/pwittchen/ReactiveBeacons/tree/RxJava2.x) | [![Build Status for RxJava2.x](https://travis-ci.org/pwittchen/ReactiveBeacons.svg?branch=RxJava2.x)](https://travis-ci.org/pwittchen/ReactiveBeacons) |
 
 This is **RxJava1.x** branch. To see documentation for RxJava2.x, switch to [RxJava2.x](https://github.com/pwittchen/ReactiveBeacons/tree/RxJava2.x) branch.
 
