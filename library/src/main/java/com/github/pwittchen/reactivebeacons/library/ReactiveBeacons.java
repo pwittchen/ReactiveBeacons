@@ -15,16 +15,21 @@
  */
 package com.github.pwittchen.reactivebeacons.library;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.os.Build;
+import android.support.annotation.RequiresPermission;
 import com.github.pwittchen.reactivebeacons.library.scan.strategy.ScanStrategy;
 import com.github.pwittchen.reactivebeacons.library.scan.strategy.lollipop.LollipopScanStrategy;
 import com.github.pwittchen.reactivebeacons.library.scan.strategy.prelollipop.PreLollipopScanStrategy;
 import rx.Observable;
+
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 /**
  * An Android library monitoring Bluetooth Low Energy (BLE) beacons with RxJava
@@ -98,7 +103,10 @@ public class ReactiveBeacons {
    *
    * @return Observable stream of beacons
    */
-  public Observable<Beacon> observe() {
+
+  @RequiresPermission(anyOf = {
+      ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION
+  }) public Observable<Beacon> observe() throws SecurityException {
     if (!isBleSupported()) {
       return Observable.empty();
     }
@@ -121,7 +129,9 @@ public class ReactiveBeacons {
    * @param scanStrategy BLE scan strategy
    * @return Observable stream of beacons
    */
-  public Observable<Beacon> observe(ScanStrategy scanStrategy) {
+  @RequiresPermission(anyOf = {
+      ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION
+  }) public Observable<Beacon> observe(ScanStrategy scanStrategy) {
     if (!isBleSupported()) {
       return Observable.empty();
     }
