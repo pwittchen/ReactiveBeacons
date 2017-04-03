@@ -295,7 +295,23 @@ reactiveBeacons.observe()
 Download
 --------
 
-Not available yet. Stay tuned.
+You can depend on the library through Maven:
+
+```xml
+<dependency>
+    <groupId>com.github.pwittchen</groupId>
+    <artifactId>reactivebeacons-rx2</artifactId>
+    <version>0.6.0</version>
+</dependency>
+```
+
+or through Gradle:
+
+```groovy
+dependencies {
+  compile 'com.github.pwittchen:reactivebeacons-rx2:0.6.0'
+}
+```
 
 Tests
 -----
