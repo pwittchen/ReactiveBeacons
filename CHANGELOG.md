@@ -1,6 +1,19 @@
 CHANGELOG
 =========
 
+v. 0.6.0
+--------
+*03 Apr 2017*
+- migrated library to RxJava2.x on RxJava2.x branch and released it as `reactivebeacons-rx2` artifact
+- kept library compatible with RxJava1.x on a RxJava1.x branch and released it as `reactivebeacons` artifact
+- removed master branch
+- bumped library dependencies
+- added permission annotations
+- organized gradle configuration
+- transformed instrumentation unit tests to pure java unit tests
+- started executing unit tests on Travis CI server
+- created separate JavaDoc for RxJava1.x and RxJava2.x
+
 v. 0.5.1
 --------
 *31 Jul 2016*
