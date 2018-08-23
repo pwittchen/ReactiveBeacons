@@ -31,10 +31,10 @@ android {
 }
 
 dependencies {
-  compile deps.kotlinstdlib
-  compile deps.rxandroid2
-  compile deps.appcompatv7
-  compile project(':library')
+  implementation project(':library')
+  implementation deps.kotlinstdlib
+  implementation deps.rxandroid2
+  implementation deps.appcompatv7
 }
 
 repositories {
@@ -42,9 +42,13 @@ repositories {
 }
 
 buildscript {
-
   repositories {
+    google()
+    jcenter()
     mavenCentral()
+    maven {
+      url 'https://plugins.gradle.org/m2/'
+    }
   }
 
   dependencies {
