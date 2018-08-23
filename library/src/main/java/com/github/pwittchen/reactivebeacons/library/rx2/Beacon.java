@@ -41,7 +41,15 @@ public class Beacon {
 
   @SuppressLint("NewApi")
   public static Beacon create(ScanResult result) {
-    return create(result.getDevice(), result.getRssi(), result.getScanRecord().getBytes());
+    byte[] bytes;
+
+    if (result.getScanRecord() != null) {
+      bytes = result.getScanRecord().getBytes();
+    } else {
+      bytes = new byte[] {};
+    }
+
+    return create(result.getDevice(), result.getRssi(), bytes);
   }
 
   /**
