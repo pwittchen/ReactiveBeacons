@@ -18,6 +18,9 @@ package com.github.pwittchen.reactivebeacons.library.rx2;
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.le.ScanResult;
+import android.os.Build;
+import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import java.util.Arrays;
 
 public class Beacon {
@@ -26,6 +29,7 @@ public class Beacon {
   public final byte[] scanRecord;
   public final int txPower; // The Transmit Power Level characteristics in dBm
   public final MacAddress macAddress;
+  @Nullable public ScanResult scanResult; // it'll be null for PreLollipopScanStrategy for now
 
   public Beacon(BluetoothDevice device, int rssi, byte[] scanRecord) {
     this.device = device;
@@ -35,21 +39,33 @@ public class Beacon {
     this.macAddress = new MacAddress(device.getAddress()); // contains validated MAC address
   }
 
+  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+  public Beacon(ScanResult scanResult) {
+    byte[] scanRecordBytes;
+
+    if (scanResult.getScanRecord() != null) {
+      scanRecordBytes = scanResult.getScanRecord().getBytes();
+    } else {
+      scanRecordBytes = new byte[] {};
+    }
+
+    this.scanResult = scanResult;
+    this.device = scanResult.getDevice();
+    this.rssi = scanResult.getRssi();
+    this.scanRecord = scanRecordBytes;
+    this.txPower = -59; // default value for Estimote and Kontakt.io beacons
+    this.macAddress =
+        new MacAddress(scanResult.getDevice().getAddress()); // contains validated MAC address
+  }
+
   public static Beacon create(BluetoothDevice device, int rssi, byte[] scanRecord) {
     return new Beacon(device, rssi, scanRecord);
   }
 
   @SuppressLint("NewApi")
   public static Beacon create(ScanResult result) {
-    byte[] bytes;
 
-    if (result.getScanRecord() != null) {
-      bytes = result.getScanRecord().getBytes();
-    } else {
-      bytes = new byte[] {};
-    }
-
-    return create(result.getDevice(), result.getRssi(), bytes);
+    return create(result);
   }
 
   /**
