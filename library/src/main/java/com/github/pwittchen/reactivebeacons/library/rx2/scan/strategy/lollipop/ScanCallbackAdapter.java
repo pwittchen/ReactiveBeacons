@@ -25,17 +25,16 @@ import com.github.pwittchen.reactivebeacons.library.rx2.FutureAdapter;
 
 import io.reactivex.Observable;
 
-
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 public class ScanCallbackAdapter extends ScanCallback {
-    private final FutureAdapter futureAdapter = new FutureAdapter();
+  private final FutureAdapter futureAdapter = new FutureAdapter();
 
-    @Override
-    public void onScanResult(int callbackType, ScanResult result) {
-        futureAdapter.setBeacon(Beacon.create(result));
-    }
+  @Override
+  public void onScanResult(int callbackType, ScanResult result) {
+    futureAdapter.setBeacon(Beacon.create(result));
+  }
 
-    public Observable<Beacon> toObservable() {
-        return Observable.fromFuture(futureAdapter);
-    }
+  public Observable<Beacon> toObservable() {
+    return Observable.fromFuture(futureAdapter);
+  }
 }

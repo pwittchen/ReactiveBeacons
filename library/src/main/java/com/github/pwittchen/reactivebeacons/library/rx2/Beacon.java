@@ -62,10 +62,9 @@ public class Beacon {
     return new Beacon(device, rssi, scanRecord);
   }
 
-  @SuppressLint("NewApi")
+  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
   public static Beacon create(ScanResult result) {
-
-    return create(result);
+    return new Beacon(result);
   }
 
   /**
