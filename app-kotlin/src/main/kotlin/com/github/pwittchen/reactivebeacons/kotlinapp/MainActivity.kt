@@ -2,6 +2,7 @@ package com.github.pwittchen.reactivebeacons.kotlinapp
 
 import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.Manifest.permission.ACCESS_FINE_LOCATION
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Build
 import android.os.Bundle
@@ -19,15 +20,16 @@ import kotlinx.android.synthetic.main.activity_main.lv_beacons
 import java.util.HashMap
 
 class MainActivity : Activity() {
-  private val IS_AT_LEAST_ANDROID_M = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-  private val PERMISSIONS_REQUEST_CODE_ACCESS_COARSE_LOCATION = 1000
+
   private var reactiveBeacons: ReactiveBeacons? = null
   private var subscription: Disposable? = null
   private var beacons: MutableMap<String, Beacon> = HashMap()
 
   companion object {
-    private val BEACON = "MAC: %s, RSSI: %d\ndistance: %.2fm, proximity: %s\n%s"
-    private val BLE_NOT_SUPPORTED = "BLE is not supported on this device";
+    private val IS_AT_LEAST_ANDROID_M = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+    private const val PERMISSIONS_REQUEST_CODE_ACCESS_COARSE_LOCATION = 1000
+    private const val BEACON = "MAC: %s, RSSI: %d\ndistance: %.2fm, proximity: %s\n%s"
+    private const val BLE_NOT_SUPPORTED = "BLE is not supported on this device";
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,6 +48,7 @@ class MainActivity : Activity() {
     startSubscription()
   }
 
+  @SuppressLint("MissingPermission") // permissions are requested in onResume()
   private fun startSubscription() {
     if (reactiveBeacons != null) {
       subscription = (reactiveBeacons as ReactiveBeacons).observe()
@@ -60,7 +63,8 @@ class MainActivity : Activity() {
     if (reactiveBeacons != null) {
 
       if (!(reactiveBeacons as ReactiveBeacons).isBleSupported) {
-        Toast.makeText(this, BLE_NOT_SUPPORTED, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, BLE_NOT_SUPPORTED, Toast.LENGTH_SHORT)
+            .show()
         return false
       }
 
@@ -100,8 +104,10 @@ class MainActivity : Activity() {
     }
   }
 
-  override fun onRequestPermissionsResult(requestCode: Int, @NonNull permissions: Array<String>,
-      @NonNull grantResults: IntArray) {
+  override fun onRequestPermissionsResult(
+    requestCode: Int, @NonNull permissions: Array<String>,
+    @NonNull grantResults: IntArray
+  ) {
     super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     val isCoarseLocation = requestCode == PERMISSIONS_REQUEST_CODE_ACCESS_COARSE_LOCATION
     val permissionGranted = grantResults[0] == PERMISSION_GRANTED
@@ -113,8 +119,10 @@ class MainActivity : Activity() {
 
   private fun requestCoarseLocationPermission() {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-      requestPermissions(arrayOf<String>(ACCESS_COARSE_LOCATION),
-          PERMISSIONS_REQUEST_CODE_ACCESS_COARSE_LOCATION)
+      requestPermissions(
+          arrayOf<String>(ACCESS_COARSE_LOCATION),
+          PERMISSIONS_REQUEST_CODE_ACCESS_COARSE_LOCATION
+      )
     }
   }
 

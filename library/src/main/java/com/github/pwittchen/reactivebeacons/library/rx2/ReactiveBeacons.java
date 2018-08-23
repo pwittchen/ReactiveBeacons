@@ -102,9 +102,11 @@ public class ReactiveBeacons {
    *
    * @return Observable stream of beacons
    */
+  @SuppressLint("MissingPermission")
   @RequiresPermission(anyOf = {
       ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION
-  }) public Observable<Beacon> observe() {
+  })
+  public Observable<Beacon> observe() {
     if (!isBleSupported()) {
       return Observable.empty();
     }
@@ -131,9 +133,11 @@ public class ReactiveBeacons {
    * @param scanStrategy BLE scan strategy
    * @return Observable stream of beacons
    */
+  @SuppressLint("MissingPermission")
   @RequiresPermission(anyOf = {
       ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION
-  }) public Observable<Beacon> observe(ScanStrategy scanStrategy) {
+  })
+  public Observable<Beacon> observe(ScanStrategy scanStrategy) {
     if (!isBleSupported()) {
       return Observable.empty();
     }
