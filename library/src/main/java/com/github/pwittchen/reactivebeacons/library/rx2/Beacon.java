@@ -16,6 +16,7 @@
 package com.github.pwittchen.reactivebeacons.library.rx2;
 
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.le.ScanRecord;
 import android.bluetooth.le.ScanResult;
 import android.os.Build;
 import android.support.annotation.Nullable;
@@ -25,15 +26,15 @@ import java.util.Arrays;
 public class Beacon {
   public final BluetoothDevice device;
   public final int rssi; // Received Signal Strength Indication
-  public final byte[] scanRecord;
+  public final byte[] scanRecordBytes;
+  @Nullable public ScanRecord scanRecord; // it's null for pre-lollipop devices
   public final int txPower; // The Transmit Power Level characteristics in dBm
   public final MacAddress macAddress;
-  @Nullable public ScanResult scanResult; // it'll be null for PreLollipopScanStrategy for now
 
-  public Beacon(BluetoothDevice device, int rssi, byte[] scanRecord) {
+  public Beacon(BluetoothDevice device, int rssi, byte[] scanRecordBytes) {
     this.device = device;
     this.rssi = rssi;
-    this.scanRecord = scanRecord;
+    this.scanRecordBytes = scanRecordBytes;
     this.txPower = -59; // default value for Estimote and Kontakt.io beacons
     this.macAddress = new MacAddress(device.getAddress()); // contains validated MAC address
   }
@@ -48,10 +49,10 @@ public class Beacon {
       scanRecordBytes = new byte[] {};
     }
 
-    this.scanResult = scanResult;
     this.device = scanResult.getDevice();
     this.rssi = scanResult.getRssi();
-    this.scanRecord = scanRecordBytes;
+    this.scanRecordBytes = scanRecordBytes;
+    this.scanRecord = scanResult.getScanRecord();
     this.txPower = -59; // default value for Estimote and Kontakt.io beacons
     this.macAddress =
         new MacAddress(scanResult.getDevice().getAddress()); // contains validated MAC address
@@ -118,13 +119,13 @@ public class Beacon {
       return false;
     }
 
-    return Arrays.equals(scanRecord, beacon.scanRecord);
+    return Arrays.equals(scanRecordBytes, beacon.scanRecordBytes);
   }
 
   @Override public int hashCode() {
     int result = device.hashCode();
     result = 31 * result + rssi;
-    result = 31 * result + (scanRecord != null ? Arrays.hashCode(scanRecord) : 0);
+    result = 31 * result + (scanRecordBytes != null ? Arrays.hashCode(scanRecordBytes) : 0);
     return result;
   }
 }

@@ -245,7 +245,7 @@ Beacon class
 ```java
 BluetoothDevice device;
 int rssi;
-byte[] scanRecord;
+byte[] scanRecordBytes;
 int txPower;
 ```
 
