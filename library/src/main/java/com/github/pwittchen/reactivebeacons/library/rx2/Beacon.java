@@ -15,7 +15,6 @@
  */
 package com.github.pwittchen.reactivebeacons.library.rx2;
 
-import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.le.ScanResult;
 import android.os.Build;
