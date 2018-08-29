@@ -1,11 +1,12 @@
 # ReactiveBeacons
 
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-ReactiveBeacons-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/2576)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-ReactiveBeacons-brightgreen.svg?style=flat-square)](http://android-arsenal.com/details/1/2576)
 
-| Current Branch | Branch        | Artifact Id | Build Status  | Maven Central |
-|:--------------:|:-------------:|:-----------:|:-------------:|:-------------:|
-| | [`RxJava1.x`](https://github.com/pwittchen/ReactiveBeacons/tree/RxJava1.x) | `reactivebeacons` | [![Build Status for RxJava1.x](https://travis-ci.org/pwittchen/ReactiveBeacons.svg?branch=RxJava1.x)](https://travis-ci.org/pwittchen/ReactiveBeacons) | ![Maven Central](https://img.shields.io/maven-central/v/com.github.pwittchen/reactivebeacons.svg?style=flat) |
-| :ballot_box_with_check: | [`RxJava2.x`](https://github.com/pwittchen/ReactiveBeacons/tree/RxJava2.x) | `reactivebeacons-rx2` | [![Build Status for RxJava2.x](https://travis-ci.org/pwittchen/ReactiveBeacons.svg?branch=RxJava2.x)](https://travis-ci.org/pwittchen/ReactiveBeacons) | ![Maven Central](https://img.shields.io/maven-central/v/com.github.pwittchen/reactivebeacons-rx2.svg?style=flat) |
+| Current Branch | Branch  | Artifact Id | Build Status  | Maven Central |
+|:--------------:|:-------:|:-----------:|:-------------:|:-------------:|
+| | [`RxJava1.x`](https://github.com/pwittchen/ReactiveBeacons/tree/RxJava1.x) | `reactivebeacons` | [![Build Status for RxJava1.x](https://img.shields.io/travis/pwittchen/ReactiveBeacons.svg?branch=RxJava1.x&style=flat-square)](https://travis-ci.org/pwittchen/ReactiveBeacons) | ![Maven Central](https://img.shields.io/maven-central/v/com.github.pwittchen/reactivebeacons.svg?style=flat-square) |
+| :ballot_box_with_check: | [`RxJava2.x`](https://github.com/pwittchen/ReactiveBeacons/tree/RxJava2.x) | `reactivebeacons-rx2` | [![Build Status for RxJava2.x](https://img.shields.io/travis/pwittchen/ReactiveBeacons.svg?branch=RxJava2.x&style=flat-square)](https://travis-ci.org/pwittchen/ReactiveBeacons) |![Maven Central](https://img.shields.io/maven-central/v/com.github.pwittchen/reactivebeacons-rx2.svg?style=flat-square) |
+
 
 This is **RxJava2.x** branch. To see documentation for RxJava1.x, switch to [RxJava1.x](https://github.com/pwittchen/ReactiveBeacons/tree/RxJava1.x) branch.
 
