@@ -360,19 +360,20 @@ References
 - [Kontakt.io](http://kontakt.io)
 
 ### Other APIs and libraries
-- Beacons
+- Beacons/BLE
   - [Android SDK by Estimote](https://github.com/Estimote/Android-SDK)
   - [Android SDK by Kontakt.io](https://github.com/kontaktio/Android-SDK)
   - [Android Beacon Library by AltBeacon](https://github.com/AltBeacon/android-beacon-library)
   - [Bluetooth LE Library - Android](https://github.com/alt236/Bluetooth-LE-Library---Android)
+  - [EasyBle](https://github.com/Ficat/EasyBle)
   - [RxAndroidBle](https://github.com/Polidea/RxAndroidBle)
-- Others
+  - [RxCentralBle](https://github.com/uber/RxCentralBle)
+- Bluetooth
   - [RxBluetooth](https://github.com/IvBaranov/RxBluetooth)
   - [LMBluetoothSDK](https://github.com/whilu/LMBluetoothSdk)
   - [Android-Bluetooth-Library](https://github.com/arissa34/Android-Bluetooth-Library)
   - [AndroidSmoothBluetooth](https://github.com/palaima/AndroidSmoothBluetooth)
   - [BlueDuff](https://github.com/Marchuck/BlueDuff)
-  - [EasyBle](https://github.com/Ficat/EasyBle)
 
 License
 -------
