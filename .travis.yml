@@ -16,7 +16,7 @@ android:
     - 'android-sdk-license-.+'
     - 'google-gdk-license-.+'
 
-install
+install:
   - true
 
 before_install:
