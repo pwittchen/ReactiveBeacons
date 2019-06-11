@@ -18,7 +18,7 @@ android:
 jdk: oraclejdk8
 
 install:
-  - true
+  - echo y | $ANDROID_HOME/tools/bin/sdkmanager --licenses
 
 script:
   - ./gradlew clean build test check
