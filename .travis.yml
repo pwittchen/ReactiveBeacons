@@ -3,6 +3,7 @@ language: android
 android:
   components:
     - tools
+    - tools
     - platform-tools
     - build-tools-28
     - android-28
@@ -15,10 +16,13 @@ android:
     - 'android-sdk-license-.+'
     - 'google-gdk-license-.+'
 
-jdk: oraclejdk8
+install
+  - true
 
-install:
-  - echo y | $ANDROID_HOME/tools/bin/sdkmanager --licenses
+before_install:
+  - yes | sdkmanager "platforms;android-28"
+
+jdk: oraclejdk8
 
 script:
   - ./gradlew clean build test check
