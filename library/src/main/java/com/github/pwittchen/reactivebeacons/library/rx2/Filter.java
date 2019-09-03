@@ -23,6 +23,7 @@ import io.reactivex.functions.Function;
  * which can be used with RxJava filter(...) method inside specific subscription.
  * These methods can be used for filtering Proximity, distance, device names and MAC addresses.
  */
+@SuppressWarnings("PMD")
 public class Filter {
 
     public static Function<Beacon, Boolean> proximityIsEqualTo(final Proximity... proximities) {
