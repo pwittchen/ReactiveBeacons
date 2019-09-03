@@ -27,7 +27,6 @@ dependencies {
     testImplementation deps.junit
     testImplementation deps.truth
     testImplementation deps.mockitocore
-    testImplementation deps.mockitoandroid
 }
 
 task wrapper(type: Wrapper) {
