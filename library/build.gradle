@@ -28,7 +28,3 @@ dependencies {
     testImplementation deps.truth
     testImplementation deps.mockitocore
 }
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '3.4.1'
-}
